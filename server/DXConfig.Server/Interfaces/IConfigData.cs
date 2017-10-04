@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DXConfig.Server.Interfaces
 {
-    public interface IConfigurationStore
+    public interface IConfigData
     {
     }
 }

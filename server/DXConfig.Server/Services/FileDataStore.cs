@@ -6,7 +6,7 @@ using DXConfig.Server.Interfaces;
 
 namespace DXConfig.Server.Services
 {
-    public class FileConfigurationStore : IDataStore
+    public class FileDataStore : IDataStore
     {
         void RetrieveContainer(string application, string environment, string component)
         {
