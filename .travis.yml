@@ -1,0 +1,21 @@
+language: csharp
+sudo: false
+dist: trusty
+env:
+  global:
+    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+    - DOTNET_CLI_TELEMETRY_OPTOUT: 1
+mono: none
+os:
+  - linux
+addons:
+  apt:
+    packages:
+      - libunwind8
+branches:
+  only:
+    - master
+    - release
+    - dev
+script:
+  - ./build.sh
