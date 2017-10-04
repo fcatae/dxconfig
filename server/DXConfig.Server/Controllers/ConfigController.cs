@@ -10,7 +10,12 @@ namespace DXConfig.Server.Controllers
     [Route("api/[controller]")]
     public class ConfigController : Controller
     {
-        ConfigurationManager _configMgr = new ConfigurationManager();
+        ConfigurationManager _configMgr;
+
+        public ConfigController(ConfigurationManager configMgr)
+        {
+            _configMgr = configMgr;
+        }
 
         // GET api/values
         [HttpGet]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DXConfig.Server.Controllers;
+using DXConfig.Server.Managers;
 using DXConfig.Server.Models;
 using DXConfig.Server.Services;
 
@@ -24,9 +25,14 @@ namespace DXConfig.Server.Validations
             // Try read "myapp001": should return value
             var configData2 = store.Read("myapp001");
 
-
             // Test controller
-            var controller = new ConfigController();
+            var dataStore = new MemoryDataStore();
+            dataStore.Write("myapp001/prod", new ConfigData());
+            var configMgr = new ConfigurationManager(dataStore);
+
+            configMgr.Create("myapp001", "dev", "{<<devsecrets>>}");
+
+            var controller = new ConfigController(configMgr);
             string secrets = controller.Get("myapp001");
 
             Console.WriteLine($"Secrets for myapp001: {secrets}");
