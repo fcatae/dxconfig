@@ -28,7 +28,7 @@ namespace DXConfig.Server
         public void ConfigureServices(IServiceCollection services)
         {
             var dataStore = new MemoryDataStore();
-            dataStore.Write("myapp001", new ConfigData());
+            dataStore.Write("myapp001/prod", new ConfigData());
             services.AddSingleton<IDataStore>(dataStore);
 
             services.AddSingleton<IConfigurationManager, ConfigurationManager>();

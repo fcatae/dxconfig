@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DXConfig.Server.Interfaces;
 using DXConfig.Server.Managers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,9 +13,9 @@ namespace DXConfig.Server.Controllers
     {
         ConfigurationManager _configMgr;
 
-        public ConfigController(ConfigurationManager configMgr)
+        public ConfigController(IConfigurationManager configMgr)
         {
-            _configMgr = configMgr;
+            _configMgr = (ConfigurationManager)configMgr;
         }
 
         // GET api/values

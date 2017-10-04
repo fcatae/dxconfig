@@ -17,6 +17,7 @@ namespace Test.Server
         public ControllerTest()
         {
             _server = new TestServer(WebServerConfiguration());
+
             _client = _server.CreateClient();
         }
 
@@ -25,7 +26,7 @@ namespace Test.Server
             return new WebHostBuilder().UseStartup<DXConfig.Server.Startup>();
         }
 
-        [Fact(Skip = "Needs to configure DI")]
+        [Fact]
         public async Task GetAll()
         {
             // GET /api/config
@@ -35,7 +36,7 @@ namespace Test.Server
             var configContent = response.Content.ReadAsStringAsync();
         }
 
-        [Fact(Skip="Needs to configure DI")]
+        [Fact]
         public async Task GetAppId()
         {
             // GET /api/config/{appid}
