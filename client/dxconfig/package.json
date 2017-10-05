@@ -2,9 +2,9 @@
   "name": "dxconfig",
   "version": "1.0.0",
   "description": "Configuration management",
-  "main": "./bin/main",
+  "main": "./lib/main",
   "bin": {
-    "dxconfig": "node ./bin/main.js"
+    "dxconfig": "dxconfig"
   },
   "scripts": {
     "start": "dxconfig",
