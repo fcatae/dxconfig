@@ -2,16 +2,19 @@
   "name": "dxconfig",
   "version": "1.0.0",
   "description": "Configuration management",
-  "main": "./bin/main.js",
+  "main": "./bin/main",
+  "bin": {
+    "dxconfig": "node ./bin/main.js"
+  },
   "scripts": {
-    "start": "node index.js",
+    "start": "dxconfig",
     "build": "tsc",
     "watch": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DXBrazil/dxconfig.git"
+    "url": "https://github.com/DXBrazil/dxconfig.git"
   },
   "author": "Fabricio Catae",
   "license": "MIT",
