@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/DXBrazil/dxconfig/issues"
   },
-  "homepage": "https://github.com/DXBrazil/dxconfig#readme"
+  "homepage": "https://github.com/DXBrazil/dxconfig#readme",
+  "devDependencies": {
+    "typescript": "^2.5.3"
+  }
 }

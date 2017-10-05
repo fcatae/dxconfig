@@ -1,1 +1,1 @@
-console.log('dxconfig v1.0');
+var dxconfig = require('./bin/client.js');
