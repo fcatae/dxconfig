@@ -34,6 +34,7 @@ namespace DXConfig.Server
             services.AddSingleton<INameResolver, ApplicationResolver>();
 
             services.AddSingleton<IConfigurationManager, ConfigurationManager>();
+            services.AddSingleton<ILocatorManager, LocatorManager>();
 
             services.AddMvc();
         }
