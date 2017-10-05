@@ -1,1 +1,0 @@
-var dxconfig = require('./bin/client.js');
