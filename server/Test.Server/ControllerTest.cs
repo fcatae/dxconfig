@@ -35,10 +35,25 @@ namespace Test.Server
         [Fact]
         public Task LocatorFindApplication() => ValidateUrlAsync("/api/locator/myapp?env=test");
 
+        [Fact]
+        public async Task LocatorAuthApplicationShouldFail()
+        {
+            var result = await ValidateUrlAsync("/api/locator/myapp?env=prod");
+
+            if(result != null && result != "")
+                throw new InvalidOperationException();
+        }
+        
+        [Fact]
+        public Task LocatorRootApplication() => ValidateUrlAsync("/api/locator/myapp?env=prod&authuser=root");
+
         async Task<string> ValidateUrlAsync(string url)
         {
             var response = await _client.GetAsync(url);
             response.EnsureSuccessStatusCode();
+
+            if (response.Content == null)
+                return null;
 
             var configContent = await response.Content.ReadAsStringAsync();
 

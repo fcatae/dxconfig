@@ -32,14 +32,14 @@ namespace DXConfig.Server.Controllers
             if (appid == null)
                 throw new ArgumentNullException("appid");
 
-            return _configMgr.Retrieve(appid, "prod");
+            return _configMgr.Retrieve(appid, "dev");
         }
 
         // POST api/config/myapp001
         [HttpPost("{appid}")]
         public void Post([FromRoute]string appid, [FromBody]string value)
         {
-            _configMgr.Create(appid, "prod", value);
+            _configMgr.Create(appid, "dev", value);
         }
 
         // PUT api/config/myapp001

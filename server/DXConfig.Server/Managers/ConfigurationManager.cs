@@ -32,6 +32,9 @@ namespace DXConfig.Server.Managers
 
             var data = _dataStore.Read(containerName);
 
+            if (data == null)
+                return null;
+
             return data.ToString();
         }
     }

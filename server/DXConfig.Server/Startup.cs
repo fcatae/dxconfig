@@ -27,9 +27,7 @@ namespace DXConfig.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var dataStore = new MemoryDataStore();
-            dataStore.Write("myapp001/prod", new ConfigData());
-            services.AddSingleton<IDataStore>(dataStore);
+            services.AddSingleton<IDataStore, MemoryDataStore>();
 
             services.AddSingleton<INameResolver, ApplicationResolver>();
 
@@ -40,7 +38,7 @@ namespace DXConfig.Server
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -48,6 +46,15 @@ namespace DXConfig.Server
             }
 
             app.UseMvc();
+
+            SeedMockupData(services);
+        }
+
+        void SeedMockupData(IServiceProvider services)
+        {
+            // create myapp001
+            var configManager = services.GetService<IConfigurationManager>();
+            ((ConfigurationManager)configManager).Create("myapp001", "dev", "{secrets}");
         }
     }
 }

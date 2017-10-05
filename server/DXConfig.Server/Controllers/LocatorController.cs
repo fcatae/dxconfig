@@ -29,6 +29,12 @@ namespace DXConfig.Server.Controllers
             
             if( appToken == null )
             {
+                if( authUser == null )
+                {
+                    // todo: return 404
+                    return null;
+                }
+
                 appToken = _locator.SecureFind(authUser, appid, env);
             }
 
