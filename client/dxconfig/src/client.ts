@@ -6,7 +6,14 @@ import fs = require('fs');
 
 var endpoint = 'http://localhost:5000/api/config';
 var application = 'myapp001';
+var argv = process.argv.slice(2);
 
+// use parameters if supplied by the user
+( argv.length > 0 ) && (application = argv[0]);
+
+console.log('Download application configuration: ' + application);
+
+// define the remote url and local filename
 var downloadUrl = resolveName(endpoint, application);
 var localFilename = resolveFile(application);
 
