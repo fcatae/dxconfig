@@ -1,0 +1,1 @@
+console.log('dxconfig v1.0');
