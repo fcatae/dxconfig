@@ -11,28 +11,26 @@ namespace DXConfig.Server.Managers
     public class ConfigurationManager : IConfigurationManager
     {
         IDataStore _dataStore;
+        INameResolver _nameResolver;
 
-        public ConfigurationManager(IDataStore dataStore)
+        public ConfigurationManager(IDataStore dataStore, INameResolver nameResolver)
         {
             _dataStore = dataStore;
+            _nameResolver = (ApplicationResolver)nameResolver;
         }
 
         public void Create(string application, string environment, string secrets)
         {
-            MemoryDataStore dataStore = (MemoryDataStore)_dataStore;
+            string containerName = _nameResolver.Resolve(application, environment);
 
-            string containerName = application + "/" + environment;
-
-            dataStore.Write(containerName, new ConfigData());
+            _dataStore.Write(containerName, new ConfigData());
         }
 
         public string Retrieve(string application, string environment)
         {
-            MemoryDataStore dataStore = (MemoryDataStore)_dataStore;
+            string containerName = _nameResolver.Resolve(application, environment);
 
-            string containerName = application + "/" + environment;
-
-            var data = dataStore.Read(containerName);
+            var data = _dataStore.Read(containerName);
 
             return data.ToString();
         }

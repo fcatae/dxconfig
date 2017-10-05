@@ -6,13 +6,13 @@ using DXConfig.Server.Interfaces;
 
 namespace DXConfig.Server.Services
 {
-    public class FileConfigurationStore : IDataStore
+    public class FileConfigurationStore // : IDataStore, ISensitiveDataStore, INameResolver
     {
         void RetrieveContainer(string application, string environment, string component)
         {
         }
 
-        void RetrieveEncryptionKey(string containerName)
+        void RetrieveEncryptionKey(string containerName, string containerKey)
         {
         }
 

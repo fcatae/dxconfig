@@ -8,16 +8,14 @@ namespace DXConfig.Server.Services
 {
     public class FileDataStore : IDataStore
     {
-        void RetrieveContainer(string application, string environment, string component)
+        public IConfigData Read(string containerName)
         {
+            throw new NotImplementedException();
         }
 
-        void RetrieveEncryptionKey(string containerName)
+        public void Write(string containerName, IConfigData containerData)
         {
-        }
-
-        void RetrieveData(string containerName)
-        {
+            throw new NotImplementedException();
         }
     }
 }

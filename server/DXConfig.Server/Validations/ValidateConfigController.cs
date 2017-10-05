@@ -27,8 +27,9 @@ namespace DXConfig.Server.Validations
 
             // Test controller
             var dataStore = new MemoryDataStore();
+            var nameResolver = new ApplicationResolver();
             dataStore.Write("myapp001/prod", new ConfigData());
-            var configMgr = new ConfigurationManager(dataStore);
+            var configMgr = new ConfigurationManager(dataStore, nameResolver);
 
             configMgr.Create("myapp001", "dev", "{<<devsecrets>>}");
 

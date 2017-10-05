@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace DXConfig.Server.Interfaces
 {
-    public interface IDataStore
+    public interface INameResolver
     {
-        void Write(string containerName, IConfigData containerData);
-        IConfigData Read(string containerName);
+        string Resolve(string application, string environment);
     }
 }

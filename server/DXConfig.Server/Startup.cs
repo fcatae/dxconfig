@@ -31,6 +31,8 @@ namespace DXConfig.Server
             dataStore.Write("myapp001/prod", new ConfigData());
             services.AddSingleton<IDataStore>(dataStore);
 
+            services.AddSingleton<INameResolver, ApplicationResolver>();
+
             services.AddSingleton<IConfigurationManager, ConfigurationManager>();
 
             services.AddMvc();

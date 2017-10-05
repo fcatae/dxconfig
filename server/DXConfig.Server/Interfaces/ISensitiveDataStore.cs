@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 
 namespace DXConfig.Server.Interfaces
 {
-    public interface IDataStore
+    public interface ISensitiveDataStore
     {
-        void Write(string containerName, IConfigData containerData);
-        IConfigData Read(string containerName);
     }
 }
