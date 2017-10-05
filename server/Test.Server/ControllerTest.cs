@@ -27,23 +27,22 @@ namespace Test.Server
         }
 
         [Fact]
-        public async Task GetAll()
-        {
-            // GET /api/config
-            var response = await _client.GetAsync("/api/config");
-            response.EnsureSuccessStatusCode();
-
-            var configContent = response.Content.ReadAsStringAsync();
-        }
+        public Task ConfigGetAll() => ValidateUrlAsync("/api/config");
 
         [Fact]
-        public async Task GetAppId()
-        {
-            // GET /api/config/{appid}
-            var response2 = await _client.GetAsync("/api/config/myapp001");
-            response2.EnsureSuccessStatusCode();
+        public Task ConfigGetAppId() => ValidateUrlAsync("/api/config/myapp001");
 
-            var configContent2 = response2.Content.ReadAsStringAsync();
+        [Fact]
+        public Task LocatorFindApplication() => ValidateUrlAsync("/api/locator/myapp?env=test");
+
+        async Task<string> ValidateUrlAsync(string url)
+        {
+            var response = await _client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            var configContent = await response.Content.ReadAsStringAsync();
+
+            return configContent;
         }
     }
 }
