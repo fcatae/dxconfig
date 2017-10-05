@@ -20,14 +20,17 @@ namespace DXConfig.Server.Controllers
 
         // GET api/locator/myapplication?env=test
         [HttpGet("{appid}")]
-        public string Get(string appid, [FromQuery]string env)
+        public string Get(string appid, [FromQuery]string env, [FromQuery]string authUser)
         {
             if (appid == null)
                 throw new ArgumentNullException("appid");
 
-            bool hasEnvironment = (env != null);
-
-            string appToken = hasEnvironment ? _locator.Find(appid, env) : _locator.Find(appid);
+            string appToken = _locator.Find(appid, env);
+            
+            if( appToken == null )
+            {
+                appToken = _locator.SecureFind(authUser, appid, env);
+            }
 
             return appToken;
         }
