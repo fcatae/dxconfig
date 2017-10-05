@@ -10,7 +10,7 @@ namespace DXConfig.Server.Models
     {
         public override string ToString()
         {
-            return "{secrets: true}";
+            return "{\"secrets\": true}";
         }
     }
 }
