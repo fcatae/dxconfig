@@ -22,7 +22,7 @@ namespace DXConfig.Server.Pages
 
             // Authenticate using the identity
             var principal = new ClaimsPrincipal(identity);
-            await HttpContext.SignInAsync(  "dxConfigCookieAuthScheme", //CookieAuthenticationDefaults.AuthenticationScheme, 
+            await HttpContext.SignInAsync(  CookieAuthenticationDefaults.AuthenticationScheme, 
                                             principal, 
                                             new AuthenticationProperties { IsPersistent = false }
                                             );

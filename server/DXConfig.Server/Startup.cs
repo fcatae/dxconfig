@@ -6,6 +6,7 @@ using DXConfig.Server.Interfaces;
 using DXConfig.Server.Managers;
 using DXConfig.Server.Models;
 using DXConfig.Server.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -44,8 +45,9 @@ namespace DXConfig.Server
             });
             services.AddSingleton<ILocatorManager, LocatorManager>();
 
-            services.AddAuthentication("dxConfigCookieAuthScheme")
-                .AddCookie("dxConfigCookieAuthScheme", options => {
+            services.AddAuthentication()
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
                     options.AccessDeniedPath = "/AccountForbidden";
                     options.LoginPath = "/AccountUnauthorized";
                 });

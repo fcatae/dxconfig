@@ -13,7 +13,7 @@ namespace DXConfig.Server.Pages
         
         public async Task OnGetAsync()
         {
-            await HttpContext.SignOutAsync("dxConfigCookieAuthScheme");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
             Message = "Your application description page.";
         }
