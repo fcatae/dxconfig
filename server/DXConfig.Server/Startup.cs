@@ -27,11 +27,21 @@ namespace DXConfig.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IDataStore, MemoryDataStore>();
+            //services.AddTransient<IDataStore, MemoryDataStore>();
+            //services.AddTransient<ISecureDataStore, SecureDataStore>();
 
             services.AddSingleton<INameResolver, ApplicationResolver>();
 
-            services.AddSingleton<IConfigurationManager, ConfigurationManager>();
+            services.AddSingleton<IConfigurationManager>( s => {
+
+                var nameResolver = s.GetService<INameResolver>();
+                var keyStore = new MemoryDataStore();
+                var configStore = new SecureDataStore(new MemoryDataStore());
+
+                var config = new ConfigurationManager(nameResolver, keyStore, configStore);
+
+                return config;
+            });
             services.AddSingleton<ILocatorManager, LocatorManager>();
 
             services.AddMvc();

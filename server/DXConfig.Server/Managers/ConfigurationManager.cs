@@ -12,25 +12,43 @@ namespace DXConfig.Server.Managers
     {
         IDataStore _dataStore;
         INameResolver _nameResolver;
+        ISecureDataStore _secureDataStore;
 
-        public ConfigurationManager(IDataStore dataStore, INameResolver nameResolver)
+        public ConfigurationManager(INameResolver nameResolver, IDataStore dataStore, ISecureDataStore secureDataStore)
         {
             _dataStore = dataStore;
             _nameResolver = (ApplicationResolver)nameResolver;
+            _secureDataStore = secureDataStore;
         }
 
         public void Create(string application, string environment, string secrets)
         {
-            string containerName = _nameResolver.Resolve(application, environment);
+            string key = "SECRETGENERATED";
 
-            _dataStore.Write(containerName, new ConfigData());
+            string containerName = _nameResolver.Resolve(application, environment);
+            
+            _dataStore.Write(containerName, new StringData(key));
+            _secureDataStore.Write(containerName, new ConfigData(), key);
         }
 
         public string Retrieve(string application, string environment)
         {
             string containerName = _nameResolver.Resolve(application, environment);
 
-            var data = _dataStore.Read(containerName);
+            // container name not found
+            if (containerName == null)
+                return null;
+
+            // read key
+            var keydata = _dataStore.Read(containerName);
+
+            if (keydata == null)
+                return null;
+
+            string key = keydata.ToString();
+
+            // read data
+            var data = _secureDataStore.Read(containerName, key);
 
             if (data == null)
                 return null;
