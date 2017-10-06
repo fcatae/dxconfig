@@ -6,7 +6,7 @@ using DXConfig.Server.Interfaces;
 
 namespace DXConfig.Server.Models
 {
-    public class StringData : IConfigData
+    public class StringData : IConfigData, IData
     {
         private string _value;
 

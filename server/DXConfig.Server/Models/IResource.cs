@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DXConfig.Server.Services
+namespace DXConfig.Server.Models
 {
-    public interface IData
+    public interface IResource
     {
     }
 }
