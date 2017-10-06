@@ -1,0 +1,18 @@
+﻿@page
+@model DXConfig.Server.Pages.AuthPageModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+<body>
+    <h1>@Model.Message</h1>
+    <p>Number Identities: @User.Identities.Count()</p>
+    <p>User status: @User.Identity.IsAuthenticated</p>
+    <p>@User.Identity.AuthenticationType</p>
+    <p>@User.Identity.Name</p>
+</body>
+</html>

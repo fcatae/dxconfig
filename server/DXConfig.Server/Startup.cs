@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DXConfig.Server.Infra;
 using DXConfig.Server.Interfaces;
 using DXConfig.Server.Managers;
 using DXConfig.Server.Models;
@@ -46,6 +47,7 @@ namespace DXConfig.Server
             services.AddSingleton<ILocatorManager, LocatorManager>();
 
             services.AddAuthentication()
+                .AddScheme<QueryAuthOptions,QueryStringAuthenticationHandler>("qswhat", o => { o.ClaimsIssuer = "qswhat-issuer"; })
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                 {
                     options.AccessDeniedPath = "/AccountForbidden";
