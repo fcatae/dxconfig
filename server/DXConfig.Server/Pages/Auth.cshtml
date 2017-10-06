@@ -1,4 +1,5 @@
 ﻿@page
+@model DXConfig.Server.Pages.AuthModel
 <!DOCTYPE html>
 
 <html>
@@ -7,5 +8,9 @@
     <title>Index Page</title>
 </head>
 <body>
+    <p>@Model.Message</p>
+    <p>User status: @User.Identity.IsAuthenticated</p>
+    <p>@User.Identity.AuthenticationType</p>
+    <p>@User.Identity.Name</p>
 </body>
 </html>

@@ -44,6 +44,12 @@ namespace DXConfig.Server
             });
             services.AddSingleton<ILocatorManager, LocatorManager>();
 
+            services.AddAuthentication("portalCookieAuthScheme")
+                .AddCookie("dxConfigCookieAuthScheme", options => {
+                    options.AccessDeniedPath = "/AccountForbidden";
+                    options.LoginPath = "/AccountUnauthorized";
+                });
+
             services.AddMvc();
         }
 
@@ -55,8 +61,10 @@ namespace DXConfig.Server
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseAuthentication();
 
+            app.UseMvc();
+            
             SeedMockupData(services);
         }
 
