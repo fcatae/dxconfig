@@ -16,28 +16,35 @@ namespace DXConfig.Server.Infra
 
     public class QueryStringAuthenticationHandler : AuthenticationHandler<QueryAuthOptions>
     {
+        const string QUERYSTRING_USER = "authuser";
+
         public QueryStringAuthenticationHandler(IOptionsMonitor<QueryAuthOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock) 
             : base(options, logger, encoder, clock)
         {
         }
 
-        protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
+        protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            string username = "fabuser";
+            var result = AuthenticateResult.NoResult();
 
-            await Task.Delay(0);
+            if (Request.Query.ContainsKey(QUERYSTRING_USER))
+            {
+                string username = Request.Query[QUERYSTRING_USER];
 
-            // Create the identity from the user info
-            var identity = new ClaimsIdentity("query");
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, username));
-            identity.AddClaim(new Claim(ClaimTypes.Name, username));
+                // Create the identity from the user info
+                var identity = new ClaimsIdentity("query");
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, username));
+                identity.AddClaim(new Claim(ClaimTypes.Name, username));
 
-            // Authenticate using the identity
-            var principal = new ClaimsPrincipal(identity);
+                // Authenticate using the identity
+                var principal = new ClaimsPrincipal(identity);
 
-            var ticket = new AuthenticationTicket(principal, this.Scheme.Name);
+                var ticket = new AuthenticationTicket(principal, this.Scheme.Name);
 
-            return AuthenticateResult.Success(ticket);
+                result = AuthenticateResult.Success(ticket);
+            }
+
+            return Task.FromResult(result);
         }
     }
 }

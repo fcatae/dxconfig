@@ -15,8 +15,12 @@ namespace DXConfig.Server.Pages
         {
             var result = await HttpContext.AuthenticateAsync("qswhat");
 
-            var ident = result.Principal.Identity as ClaimsIdentity;
-            
+            if (result.Principal != null)
+            {
+                var ident = result.Principal.Identity as ClaimsIdentity;
+                User.AddIdentity(ident);
+            }
+
             Message = "Your application description page.";
         }
     }

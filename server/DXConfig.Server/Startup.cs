@@ -49,7 +49,7 @@ namespace DXConfig.Server
             services.AddAuthentication()
                 .AddScheme<QueryAuthOptions,QueryStringAuthenticationHandler>("qswhat", o => { o.ClaimsIssuer = "qswhat-issuer"; })
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-                {
+                {                    
                     options.AccessDeniedPath = "/AccountForbidden";
                     options.LoginPath = "/AccountUnauthorized";
                 });
