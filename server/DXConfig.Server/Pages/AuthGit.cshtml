@@ -1,0 +1,16 @@
+﻿@page
+@model DXConfig.Server.Pages.AuthGitModel
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index Page</title>
+</head>
+<body>
+    <p>@Model.Message</p>
+    <p>User status: @User.Identity.IsAuthenticated</p>
+    <p>@User.Identity.AuthenticationType</p>
+    <p>@User.Identity.Name</p>
+</body>
+</html>
