@@ -28,8 +28,6 @@ namespace DXConfig.Server.Managers
 
         User Create(string provider, string username, string keyValue, string keyHash)
         {
-            string userString = $"{provider}:{username}";
-
             var hashKey = new HashKey(keyValue, keyHash);
 
             return new User(provider, username, hashKey);
