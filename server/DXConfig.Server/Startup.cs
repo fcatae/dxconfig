@@ -87,6 +87,8 @@ namespace DXConfig.Server
 
             app.UseAuthentication();
 
+            app.UseQueryStringAuthentication();
+
             app.UseMvc();
             
             SeedMockupData(services);

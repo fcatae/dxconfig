@@ -34,6 +34,8 @@ namespace DXConfig.Server.Controllers
                 throw new ArgumentNullException("appid");
 
             var appResource = new AppLink(appid);
+
+            // GetUser(principal, secrets) => string usr = this.User.FindFirst("name").Value;
             IUser user = null;
 
             var data = _configServer.Retrieve(user, appResource);
