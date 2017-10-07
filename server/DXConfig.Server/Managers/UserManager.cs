@@ -47,7 +47,7 @@ namespace DXConfig.Server.Managers
 
             string[] components = text.Split(":");
 
-            if (components.Length != 3)
+            if (components.Length != 4)
                 return null;
 
             string provider = WebUtility.UrlDecode(components[0]);

@@ -19,10 +19,12 @@ namespace Test.Server
             var user1 = userManager.Create("git:git", "comp1:comp2");
 
             // serialize
-            string serialization1 = user1.ToString();
+            string serialization1 = userManager.ExportUser(user1);
 
             // deserialize
             var sameUser1 = userManager.ImportUser(serialization1);
+
+            Assert.NotNull(sameUser1);
 
             Assert.Equal(user1.Provider, sameUser1.Provider);
             Assert.Equal(user1.Name, sameUser1.Name);
@@ -39,20 +41,7 @@ namespace Test.Server
             UserManager userManager = new UserManager(hashServices);
 
             var user1 = userManager.Create("git", "fabricio");
-
-            // serialize
-            string serialization1 = user1.ToString();
             
-            // deserialize
-            var sameUser1 = userManager.ImportUser(serialization1);
-
-            Assert.Equal(user1.Provider, sameUser1.Provider);
-            Assert.Equal(user1.Name, sameUser1.Name);
-            Assert.Equal(user1.Key.Hash, sameUser1.Key.Hash);
-
-            // userManager recognizes it as the same user1
-            Assert.True(userManager.Validate(sameUser1));
-
             IPassKeyServices otherHashServices = new PassKeyServices("abc");
             UserManager otherUserManager = new UserManager(otherHashServices);
 

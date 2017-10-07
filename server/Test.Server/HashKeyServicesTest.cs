@@ -37,16 +37,6 @@ namespace Test.Server
             Assert.Equal(hash1.Hash, hash2.Hash);
 
             Assert.NotEqual(hash1.Hash, otherHash.Hash);
-        }
-
-        [Fact]
-        public void TestImportExport()
-        {
-            IPassKeyServices hashServices1 = new PassKeyServices("abc");
-            IPassKeyServices otherHashServices = new PassKeyServices("123");
-
-            var hash1 = hashServices1.CreateKey("abc") as HashKey;
-            var hash2 = hashServices1.CreateKey("abc") as HashKey;
-        }
+        }        
     }
 }
