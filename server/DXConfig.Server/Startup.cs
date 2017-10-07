@@ -49,7 +49,7 @@ namespace DXConfig.Server
             services.AddSingleton<ILocatorManager, LocatorManager>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddScheme<QueryAuthOptions, QueryStringAuthenticationHandler>("qswhat", o => { o.ClaimsIssuer = "qswhat-issuer"; })
+                // QueryStringAuthenticationMiddleware.AddScheme<QueryAuthOptions, QueryStringAuthenticationHandler>("qswhat", o => { o.ClaimsIssuer = "qswhat-issuer"; })
                 //.AddOAuth("git", o => {
                 //    //AuthenticationScheme = "GitHub",
                 //    //DisplayName = "GitHub",

@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace DXConfig.Server.Infra
 {
-    public class UserCredentialsMiddleware
+    public class QueryStringAuthenticationMiddleware
     {
         private readonly RequestDelegate _next;
         string _qsAuthUser = "authuser";
         string _qsSecret = "secret";
 
-        public UserCredentialsMiddleware(RequestDelegate next)
+        public QueryStringAuthenticationMiddleware(RequestDelegate next)
         {
             this._next = next;
         }

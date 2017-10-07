@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Builder;
 
 namespace DXConfig.Server.Infra
 {
-    public static class UserCredentialsMiddlewareExtensions
+    public static class QueryStringAuthenticationMiddlewareExtensions
     {
         public static IApplicationBuilder UseQueryStringAuthentication(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<UserCredentialsMiddleware>();
+            return builder.UseMiddleware<QueryStringAuthenticationMiddleware>();
         }
     }
 }
