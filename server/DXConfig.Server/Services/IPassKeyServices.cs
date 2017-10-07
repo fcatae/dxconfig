@@ -8,7 +8,7 @@ namespace DXConfig.Server.Services
 {
     public interface IPassKeyServices
     {
-        IPassKey Create(string value);
+        IPassKey CreateKey(params string[] components);
         bool ValidateKey(IPassKey key);
     }
 }

@@ -6,7 +6,7 @@ using DXConfig.Server.Models;
 
 namespace DXConfig.Server.Services
 {    
-    public partial class PassKeyServices
+    public partial class PassKeyServices : IPassKeyServices
     {
         IHash _calculate;
         protected ITextSerializer _text;
@@ -26,16 +26,23 @@ namespace DXConfig.Server.Services
 
         public IPassKey CreateKey(params string[] components)
         {
-            string value = Reduce(components);
+            string value = Serialize(components);
 
             return CreateHash(value);
         }
-        
-        protected virtual string Reduce(string[] components)
+
+        protected virtual string Serialize(string[] components)
         {
             string[] safeComponents = _text.Encode(components);
 
             return String.Join(':', safeComponents);
+        }
+
+        protected virtual string[] Deserialize(string text)
+        {
+            string[] components = text.Split(':');
+
+            return _text.Decode(components);
         }
 
         protected IPassKey CreateHash(string value)

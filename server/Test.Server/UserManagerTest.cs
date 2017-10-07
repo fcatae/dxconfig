@@ -13,7 +13,7 @@ namespace Test.Server
         [Fact]
         public void TestUserSerialization()
         {
-            HashKeyServices hashServices = new HashKeyServices("123");
+            IPassKeyServices hashServices = new PassKeyServices("123");
             UserManager userManager = new UserManager(hashServices);
 
             var user1 = userManager.Create("git:git", "comp1:comp2");
@@ -35,7 +35,7 @@ namespace Test.Server
         [Fact]
         public void TestUserManager()
         {
-            HashKeyServices hashServices = new HashKeyServices("123");
+            IPassKeyServices hashServices = new PassKeyServices("123");
             UserManager userManager = new UserManager(hashServices);
 
             var user1 = userManager.Create("git", "fabricio");
@@ -52,8 +52,8 @@ namespace Test.Server
 
             // userManager recognizes it as the same user1
             Assert.True(userManager.Validate(sameUser1));
-                        
-            HashKeyServices otherHashServices = new HashKeyServices("abc");
+
+            IPassKeyServices otherHashServices = new PassKeyServices("abc");
             UserManager otherUserManager = new UserManager(otherHashServices);
 
             // create a similar user

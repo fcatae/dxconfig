@@ -13,14 +13,14 @@ namespace Test.Server
         [Fact]
         public void TestHashes()
         {
-            HashKeyServices hashServices1 = new HashKeyServices("abc");
-            HashKeyServices otherHashServices = new HashKeyServices("123");
+            IPassKeyServices hashServices1 = new PassKeyServices("abc");
+            IPassKeyServices otherHashServices = new PassKeyServices("123");
 
-            var hash1 = hashServices1.Create("abc") as HashKey;
-            var hash2 = hashServices1.Create("abc") as HashKey;
-            var hash3 = hashServices1.Create("123");
+            var hash1 = hashServices1.CreateKey("abc") as HashKey;
+            var hash2 = hashServices1.CreateKey("abc") as HashKey;
+            var hash3 = hashServices1.CreateKey("123");
 
-            var otherHash = otherHashServices.Create("abc") as HashKey;
+            var otherHash = otherHashServices.CreateKey("abc") as HashKey;
 
             Assert.True(hash1.Value.Length == 3);
             Assert.True(hash1.Hash.Length > 3);
@@ -37,6 +37,16 @@ namespace Test.Server
             Assert.Equal(hash1.Hash, hash2.Hash);
 
             Assert.NotEqual(hash1.Hash, otherHash.Hash);
+        }
+
+        [Fact]
+        public void TestImportExport()
+        {
+            IPassKeyServices hashServices1 = new PassKeyServices("abc");
+            IPassKeyServices otherHashServices = new PassKeyServices("123");
+
+            var hash1 = hashServices1.CreateKey("abc") as HashKey;
+            var hash2 = hashServices1.CreateKey("abc") as HashKey;
         }
     }
 }
