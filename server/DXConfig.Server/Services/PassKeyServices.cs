@@ -5,34 +5,49 @@ using System.Threading.Tasks;
 using DXConfig.Server.Models;
 
 namespace DXConfig.Server.Services
-{
-    public class UserKeyServices : PassKeyServices
-    {
-        public UserKeyServices(string secret)
-            : base(Hash.Sha256(secret))
-        {
-        }
-
-        public IPassKey Create(string provider, string username)
-        {
-            string value = $"{provider}:{username}";
-
-            return base.Create(value);
-        }
-    }
-
-    public abstract partial class PassKeyServices
+{    
+    public partial class PassKeyServices
     {
         IHash _calculate;
+        protected ITextSerializer _text;
+        protected ByteConverterDelegate _convertToString;
 
-        protected PassKeyServices(IHash calculate)
+        public PassKeyServices(string secrets) 
+            : this( Hash.Sha256(secrets), Hash.Base64Url, Text.UrlEncoder )
         {
-            _calculate = calculate;
         }
 
-        protected IPassKey Create(string value)
+        protected PassKeyServices(IHash calculate, ByteConverterDelegate convertToString, ITextSerializer text)
         {
-            return new HashKey(value, _calculate.Hash(value).Base64);
+            _calculate = calculate;
+            _text = text;
+            _convertToString = convertToString;
+        }
+
+        public IPassKey CreateKey(params string[] components)
+        {
+            string value = Reduce(components);
+
+            return CreateHash(value);
+        }
+        
+        protected virtual string Reduce(string[] components)
+        {
+            string[] safeComponents = _text.Encode(components);
+
+            return String.Join(':', safeComponents);
+        }
+
+        protected IPassKey CreateHash(string value)
+        {
+            return new HashKey(value, HashString(value));
+        }
+
+        string HashString(string value)
+        {
+            byte[] data = _calculate.Hash(value).Bytes;
+
+            return _convertToString(data);
         }
 
         public bool ValidateKey(IPassKey key)
@@ -43,7 +58,7 @@ namespace DXConfig.Server.Services
             string value = key.Value;
             string hash = key.Hash;
 
-            return (hash == _calculate.Hash(value).Base64);
+            return (hash == HashString(value));
         }
     }
 }

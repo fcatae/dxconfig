@@ -6,12 +6,15 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using DXConfig.Server.Models;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace DXConfig.Server.Services
 {
-    public abstract partial class PassKeyServices
+    public partial class PassKeyServices
     {
-        public class HashedData
+        protected delegate string ByteConverterDelegate(byte[] data);
+
+        protected class HashedData
         {
             public HashedData(byte[] bytes)
             {
@@ -19,13 +22,9 @@ namespace DXConfig.Server.Services
             }
 
             public byte[] Bytes { get; }
-
-            public string Base64 => Convert.ToBase64String(this.Bytes);
-
-            public string Hex => this.Bytes.ToString();
         }
 
-        public interface IHash
+        protected interface IHash
         {
             HashedData Hash(string value);
         }
@@ -33,6 +32,12 @@ namespace DXConfig.Server.Services
         protected static class Hash
         {
             public static IHash Sha256(string secret) => new HashSha256(secret);
+            
+            public static string Base64(byte[] data) => Convert.ToBase64String(data);
+
+            public static string Hex(byte[] data) => data.ToString();
+
+            public static string Base64Url(byte[] data) => Base64UrlTextEncoder.Encode(data);
         }
 
         protected class HashSha256 : IHash
@@ -62,11 +67,22 @@ namespace DXConfig.Server.Services
             }
         }
 
-        protected static class Serializer
+        protected interface ITextSerializer
         {
-            public static string[] Decode(string[] components) => Apply(WebUtility.UrlDecode, components);
+            string[] Decode(string[] components);
+            string[] Encode(string[] components);
+        }
 
-            public static string[] Encode(string[] components) => Apply(WebUtility.UrlEncode, components);
+        protected class Text
+        {
+            public static ITextSerializer UrlEncoder => new UrlTextEncoder();
+        }
+
+        protected class UrlTextEncoder : ITextSerializer
+        {
+            public string[] Decode(string[] components) => Apply(WebUtility.UrlDecode, components);
+
+            public string[] Encode(string[] components) => Apply(WebUtility.UrlEncode, components);
 
             static string[] Apply(Func<string,string> func, string[] components)
             {
