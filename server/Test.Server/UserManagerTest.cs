@@ -22,11 +22,11 @@ namespace Test.Server
             string serialization1 = user1.ToString();
 
             // deserialize
-            var sameUser1 = User.Create(serialization1);
+            var sameUser1 = userManager.ImportUser(serialization1);
 
             Assert.Equal(user1.Provider, sameUser1.Provider);
             Assert.Equal(user1.Name, sameUser1.Name);
-            Assert.Equal(user1.Hash, sameUser1.Hash);
+            Assert.Equal(user1.Key.Hash, sameUser1.Key.Hash);
 
             // userManager recognizes it as the same user1
             Assert.True(userManager.Validate(sameUser1));
@@ -44,11 +44,11 @@ namespace Test.Server
             string serialization1 = user1.ToString();
             
             // deserialize
-            var sameUser1 = User.Create(serialization1);
+            var sameUser1 = userManager.ImportUser(serialization1);
 
             Assert.Equal(user1.Provider, sameUser1.Provider);
             Assert.Equal(user1.Name, sameUser1.Name);
-            Assert.Equal(user1.Hash, sameUser1.Hash);
+            Assert.Equal(user1.Key.Hash, sameUser1.Key.Hash);
 
             // userManager recognizes it as the same user1
             Assert.True(userManager.Validate(sameUser1));
@@ -63,7 +63,7 @@ namespace Test.Server
             Assert.Equal(user1.Provider, otherUser.Provider);
             Assert.Equal(user1.Name, otherUser.Name);
             // except for the hash
-            Assert.NotEqual(user1.Hash, otherUser.Hash);
+            Assert.NotEqual(user1.Key.Hash, otherUser.Key.Hash);
 
             Assert.False(userManager.Validate(otherUser));
         }

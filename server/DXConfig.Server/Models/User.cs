@@ -10,26 +10,9 @@ namespace DXConfig.Server.Models
     {
         public string Provider { get; }
         public string Name { get; }
-        public string Hash { get; }
-
-        public static User Create(string text)
-        {
-            if (text == null)
-                return null;
-
-            string[] components = text.Split(":");
-
-            if (components.Length != 3)
-                return null;
-
-            string provider = WebUtility.UrlDecode(components[0]);
-            string name = WebUtility.UrlDecode(components[1]);
-            string hash = components[2];
-
-            return new User(provider, name, hash);
-        }
-
-        public User(string provider, string name, string hash)
+        public IPassKey Key { get; }
+        
+        public User(string provider, string name, IPassKey key)
         {
             if (provider == null)
                 throw new ArgumentNullException(nameof(provider));
@@ -37,20 +20,17 @@ namespace DXConfig.Server.Models
             if (name == null)
                 throw new ArgumentNullException(nameof(name));
 
-            if (hash == null)
-                throw new ArgumentNullException(nameof(hash));
+            if (key == null)
+                throw new ArgumentNullException(nameof(key));
 
             Provider = provider;
             Name = name;
-            Hash = hash;
+            Key = key;
         }
 
         public override string ToString()
         {
-            string provider = WebUtility.UrlEncode(Provider);
-            string name = WebUtility.UrlEncode(Name);
-
-            return $"{provider}:{name}:{Hash}";
+            return $"{Provider}:{Name}";
         }
     }
 }
