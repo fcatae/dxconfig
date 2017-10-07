@@ -16,7 +16,7 @@ namespace Test.Server
             IPassKeyServices hashServices = new PassKeyServices("123");
             UserManager userManager = new UserManager(hashServices);
 
-            var user1 = userManager.Create("git:git", "comp1:comp2");
+            var user1 = userManager.CreateUser("git:git", "comp1:comp2");
 
             // serialize
             string serialization1 = userManager.ExportUser(user1);
@@ -40,13 +40,13 @@ namespace Test.Server
             IPassKeyServices hashServices = new PassKeyServices("123");
             UserManager userManager = new UserManager(hashServices);
 
-            var user1 = userManager.Create("git", "fabricio");
+            var user1 = userManager.CreateUser("git", "fabricio");
             
             IPassKeyServices otherHashServices = new PassKeyServices("abc");
             UserManager otherUserManager = new UserManager(otherHashServices);
 
             // create a similar user
-            var otherUser = otherUserManager.Create("git", "fabricio");
+            var otherUser = otherUserManager.CreateUser("git", "fabricio");
 
             // almost the same characteristics 
             Assert.Equal(user1.Provider, otherUser.Provider);

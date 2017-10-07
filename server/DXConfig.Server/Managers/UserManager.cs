@@ -17,7 +17,7 @@ namespace DXConfig.Server.Managers
             this._passKeyServices = passKeyServices;
         }
 
-        public User Create(string provider, string username)
+        public User CreateUser(string provider, string username)
         {
             string userString = $"{provider}:{username}";
 
@@ -26,7 +26,7 @@ namespace DXConfig.Server.Managers
             return new User(provider, username, hashKey);
         }
 
-        User Create(string provider, string username, string keyValue, string keyHash)
+        User CreateUser(string provider, string username, string keyValue, string keyHash)
         {
             var hashKey = new HashKey(keyValue, keyHash);
 
@@ -53,7 +53,7 @@ namespace DXConfig.Server.Managers
             string keyValue = WebUtility.UrlDecode(components[2]);
             string keyHash = WebUtility.UrlDecode(components[3]);
 
-            return Create(provider, name, keyValue, keyHash);
+            return CreateUser(provider, name, keyValue, keyHash);
         }
 
         public string ExportUser(User user)
