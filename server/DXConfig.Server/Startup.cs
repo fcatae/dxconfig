@@ -36,6 +36,10 @@ namespace DXConfig.Server
 
             services.AddSingleton<INameResolver, ApplicationResolver>();
 
+            services.AddTransient<IUserAccessHandler, UserAccessHandler>();
+
+            services.AddSingleton<IUserManager>(s => new UserManager(new PassKeyServices("123")));
+
             services.AddSingleton<IConfigurationManager>( s => {
 
                 var nameResolver = s.GetService<INameResolver>();

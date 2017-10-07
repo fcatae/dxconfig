@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DXConfig.Server.Infra;
 using DXConfig.Server.Interfaces;
 using DXConfig.Server.Managers;
 using DXConfig.Server.Models;
@@ -13,10 +14,13 @@ namespace DXConfig.Server.Controllers
     public class AppLinkController : Controller
     {
         IConfigurationServerManager<AppLink> _configServer;
+        private readonly IUserAccessHandler _userAccess;
 
-        public AppLinkController(IConfigurationServerManager<AppLink> configServer)
+        public AppLinkController(IUserAccessHandler userAccess)
         {
-            _configServer = configServer;
+            //IConfigurationServerManager<AppLink> configServer, 
+            //_configServer = configServer;
+            this._userAccess = userAccess;
         }
 
         // GET api/applink
@@ -33,10 +37,8 @@ namespace DXConfig.Server.Controllers
             if (appid == null)
                 throw new ArgumentNullException("appid");
 
+            var user = _userAccess.GetUser();
             var appResource = new AppLink(appid);
-
-            // GetUser(principal, secrets) => string usr = this.User.FindFirst("name").Value;
-            IUser user = null;
 
             var data = _configServer.Retrieve(user, appResource);
 
@@ -50,8 +52,8 @@ namespace DXConfig.Server.Controllers
         [HttpPost("{appid}")]
         public void Post([FromRoute]string appid, [FromBody]string value)
         {
+            var user = _userAccess.GetUser();
             var appResource = new AppLink(appid);
-            IUser user = null;
             var data = new StringData(value);
 
             _configServer.Create(user, appResource, data);

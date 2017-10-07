@@ -8,7 +8,7 @@ using DXConfig.Server.Services;
 
 namespace DXConfig.Server.Managers
 {
-    public class UserManager
+    public class UserManager : IUserManager
     {
         public const string SecretProvider = "SECRET";
 
