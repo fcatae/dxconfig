@@ -16,6 +16,28 @@ namespace Test.Server
             HashKeyServices hashServices = new HashKeyServices("123");
             UserManager userManager = new UserManager(hashServices);
 
+            var user1 = userManager.Create("git:git", "comp1:comp2");
+
+            // serialize
+            string serialization1 = user1.ToString();
+
+            // deserialize
+            var sameUser1 = User.Create(serialization1);
+
+            Assert.Equal(user1.Provider, sameUser1.Provider);
+            Assert.Equal(user1.Name, sameUser1.Name);
+            Assert.Equal(user1.Hash, sameUser1.Hash);
+
+            // userManager recognizes it as the same user1
+            Assert.True(userManager.Validate(sameUser1));
+        }
+
+        [Fact]
+        public void TestUserManager()
+        {
+            HashKeyServices hashServices = new HashKeyServices("123");
+            UserManager userManager = new UserManager(hashServices);
+
             var user1 = userManager.Create("git", "fabricio");
 
             // serialize
