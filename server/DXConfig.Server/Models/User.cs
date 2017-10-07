@@ -12,8 +12,11 @@ namespace DXConfig.Server.Models
         public string Name { get; }
         public string Hash { get; }
 
-        public User Create(string text)
+        public static User Create(string text)
         {
+            if (text == null)
+                return null;
+
             string[] components = text.Split(":");
 
             if (components.Length != 3)
