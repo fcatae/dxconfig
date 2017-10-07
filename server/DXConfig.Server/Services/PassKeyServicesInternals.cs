@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,5 +62,18 @@ namespace DXConfig.Server.Services
             }
         }
 
+        protected static class Serializer
+        {
+            public static string[] Decode(string[] components) => Apply(WebUtility.UrlDecode, components);
+
+            public static string[] Encode(string[] components) => Apply(WebUtility.UrlEncode, components);
+
+            static string[] Apply(Func<string,string> func, string[] components)
+            {
+                var apply = components.Select(func);
+
+                return apply.ToArray();
+            }
+        }
     }
 }
