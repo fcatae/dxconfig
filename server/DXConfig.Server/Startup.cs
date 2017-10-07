@@ -50,24 +50,24 @@ namespace DXConfig.Server
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddScheme<QueryAuthOptions, QueryStringAuthenticationHandler>("qswhat", o => { o.ClaimsIssuer = "qswhat-issuer"; })
-                .AddOAuth("git", o => {
-                    //AuthenticationScheme = "GitHub",
-                    //DisplayName = "GitHub",
-                    o.ClientId = Configuration["GitHub:ClientId"];
-                    o.ClientSecret = Configuration["GitHub:ClientSecret"];
-                    o.CallbackPath = new Microsoft.AspNetCore.Http.PathString("/signin-github");
-                    o.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
-                    o.TokenEndpoint = "https://github.com/login/oauth/access_token";
-                    o.UserInformationEndpoint = "https://api.github.com/user";
-                    o.ClaimsIssuer = "OAuth2-Github";
-                    o.SaveTokens = true;
+                //.AddOAuth("git", o => {
+                //    //AuthenticationScheme = "GitHub",
+                //    //DisplayName = "GitHub",
+                //    o.ClientId = Configuration["GitHub:ClientId"];
+                //    o.ClientSecret = Configuration["GitHub:ClientSecret"];
+                //    o.CallbackPath = new Microsoft.AspNetCore.Http.PathString("/signin-github");
+                //    o.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
+                //    o.TokenEndpoint = "https://github.com/login/oauth/access_token";
+                //    o.UserInformationEndpoint = "https://api.github.com/user";
+                //    o.ClaimsIssuer = "OAuth2-Github";
+                //    o.SaveTokens = true;
                     
-                    // Retrieving user information is unique to each provider.
-                    o.Events = new OAuthEvents
-                    {
-                        OnCreatingTicket = async context => { await CreateGitHubAuthTicket(context); }
-                    };
-                })
+                //    // Retrieving user information is unique to each provider.
+                //    o.Events = new OAuthEvents
+                //    {
+                //        OnCreatingTicket = async context => { await CreateGitHubAuthTicket(context); }
+                //    };
+                //})
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                 {                    
                     options.AccessDeniedPath = "/AccountForbidden";
