@@ -9,7 +9,7 @@ namespace DXConfig.Server.Managers
     public interface ILocationManager<T>
         where T: IResource
     {
-        string Create(T resource, IPassKey key);
-        string Resolve(T resource, IPassKey key);
+        string Create(IUser user, T resource);
+        string Resolve(IUser user, T resource);
     }
 }

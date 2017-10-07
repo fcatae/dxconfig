@@ -20,9 +20,7 @@ namespace DXConfig.Server.Managers
 
         public void Create(IUser user, T resource, IData config)
         {
-            IPassKey key = user.Key;
-
-            string container = _locator.Create(resource, key);
+            string container = _locator.Create(user, resource);
 
             if (container == null)
             {
@@ -30,20 +28,18 @@ namespace DXConfig.Server.Managers
                 throw new InvalidOperationException("container == null");
             }
 
-            _store.Write(container, config, key);
+            _store.Write(container, config, null);
         }
 
         public IData Retrieve(IUser user, T resource)
         {
-            IPassKey key = user.Key;
-
-            string container = _locator.Resolve(resource, key);
+            string container = _locator.Resolve(user, resource);
 
             // container not found
             if (container == null)
                 return null;
 
-            var data = _store.Read(container, key);
+            var data = _store.Read(container, null);
 
             // data could not be retrieved
             if (data == null)
