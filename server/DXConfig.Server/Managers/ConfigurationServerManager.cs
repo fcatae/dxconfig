@@ -18,8 +18,10 @@ namespace DXConfig.Server.Managers
             this._store = store;
         }
 
-        public void Create(T resource, IPassKey key, IData config)
+        public void Create(IUser user, T resource, IData config)
         {
+            IPassKey key = user.Key;
+
             string container = _locator.Create(resource, key);
 
             if (container == null)
@@ -31,8 +33,10 @@ namespace DXConfig.Server.Managers
             _store.Write(container, config, key);
         }
 
-        public IData Retrieve(T resource, IPassKey key)
+        public IData Retrieve(IUser user, T resource)
         {
+            IPassKey key = user.Key;
+
             string container = _locator.Resolve(resource, key);
 
             // container not found

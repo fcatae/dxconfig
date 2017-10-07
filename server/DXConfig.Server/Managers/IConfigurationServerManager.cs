@@ -9,7 +9,7 @@ namespace DXConfig.Server.Managers
     public interface IConfigurationServerManager<T>
         where T: IResource
     {
-        void Create(T resource, IPassKey key, IData config);
-        IData Retrieve(T resource, IPassKey key);
+        void Create(IUser user, T resource, IData config);
+        IData Retrieve(IUser user, T resource);
     }
 }

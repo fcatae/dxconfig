@@ -6,12 +6,13 @@ using System.Net;
 
 namespace DXConfig.Server.Models
 {
-    public class User
+    public class User : IUser
     {
         public string Provider { get; }
         public string Name { get; }
         public IPassKey Key { get; }
-        
+        public IPassKey ExtraKey { get; private set; }
+
         public User(string provider, string name, IPassKey key)
         {
             if (provider == null)
@@ -26,6 +27,11 @@ namespace DXConfig.Server.Models
             Provider = provider;
             Name = name;
             Key = key;
+        }
+
+        public void SetPassword(IPassKey passwordKey)
+        {
+            ExtraKey = passwordKey;
         }
 
         public override string ToString()

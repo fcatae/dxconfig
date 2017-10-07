@@ -34,9 +34,9 @@ namespace DXConfig.Server.Controllers
                 throw new ArgumentNullException("appid");
 
             var appResource = new AppLink(appid);
-            IPassKey key = null;
+            IUser user = null;
 
-            var data = _configServer.Retrieve(appResource, key);
+            var data = _configServer.Retrieve(user, appResource);
 
             if (data == null)
                 return null;
@@ -49,10 +49,10 @@ namespace DXConfig.Server.Controllers
         public void Post([FromRoute]string appid, [FromBody]string value)
         {
             var appResource = new AppLink(appid);
-            IPassKey key = null;
+            IUser user = null;
             var data = new StringData(value);
 
-            _configServer.Create(appResource, key, data);
+            _configServer.Create(user, appResource, data);
         }
 
         // PUT api/config/myapp001
