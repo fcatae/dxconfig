@@ -9,6 +9,6 @@ namespace DXConfig.Server.Managers
     public interface IStorageManager
     {
         IData Read(string container, IPassKey key);
-        void Write(string container, IPassKey key, IData data);
+        void Write(string container, IData data, IPassKey key);
     }
 }

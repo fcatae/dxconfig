@@ -23,9 +23,12 @@ namespace DXConfig.Server.Managers
             string container = _locator.Create(resource, key);
 
             if (container == null)
+            {
+                // already exists?
                 throw new InvalidOperationException("container == null");
+            }
 
-            _store.Write(container, key, config);
+            _store.Write(container, config, key);
         }
 
         public IData Retrieve(T resource, IPassKey key)

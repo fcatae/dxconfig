@@ -8,7 +8,7 @@ namespace DXConfig.Server.Services
 {
     public interface IStoreServices
     {
-        void Write(string containerName, IData containerData, IPassKey key);
-        IData Read(string containerName, IPassKey key);
+        IData ReadData(string containerName);
+        void WriteData(string containerName, IData containerData);
     }
 }
