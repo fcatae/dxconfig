@@ -7,5 +7,6 @@ namespace DXConfig.Server.Models
 {
     public interface IPassKey
     {
+        string Value { get; }
     }
 }
