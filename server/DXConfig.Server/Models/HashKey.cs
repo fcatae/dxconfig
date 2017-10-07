@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DXConfig.Server.Models
 {
-    public class HashKey : IPassKey
+    public class HashKey : IPassKey, IHashKey
     {
         public string Value { get; }
 
@@ -15,6 +15,11 @@ namespace DXConfig.Server.Models
         {
             this.Value = value;
             this.Hash = hash;
+        }
+
+        public override string ToString()
+        {
+            return "{Value}:{Hash}";
         }
     }
 }
