@@ -10,11 +10,18 @@ namespace Test.Server
 {
     public class UserManagerTest
     {
+        private UserManager _userManager;
+
+        public UserManagerTest()
+        {
+            IPassKeyServices hashServices = new PassKeyServices("123");
+            this._userManager = new UserManager(hashServices);
+        }
+
         [Fact]
         public void TestUserSerialization()
         {
-            IPassKeyServices hashServices = new PassKeyServices("123");
-            UserManager userManager = new UserManager(hashServices);
+            UserManager userManager = _userManager;
 
             var user1 = userManager.CreateUser("git:git", "comp1:comp2");
 
@@ -37,8 +44,7 @@ namespace Test.Server
         [Fact]
         public void TestUserManager()
         {
-            IPassKeyServices hashServices = new PassKeyServices("123");
-            UserManager userManager = new UserManager(hashServices);
+            UserManager userManager = _userManager;
 
             var user1 = userManager.CreateUser("git", "fabricio");
             
@@ -55,6 +61,18 @@ namespace Test.Server
             Assert.NotEqual(user1.Key.Hash, otherUser.Key.Hash);
 
             Assert.False(userManager.Validate(otherUser));
+        }
+
+        [Fact]
+        public void TestCreateSecret()
+        {
+            var secret = _userManager.CreateSecret("abc");
+
+            Assert.NotNull(secret);
+
+            Assert.Equal(secret.Provider, UserManager.SecretProvider);
+            Assert.NotEqual(secret.Name, "abc");
+            Assert.NotNull(secret.Key);
         }
     }
 }

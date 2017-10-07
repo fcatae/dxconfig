@@ -10,6 +10,8 @@ namespace DXConfig.Server.Managers
 {
     public class UserManager
     {
+        public const string SecretProvider = "SECRET";
+
         private IPassKeyServices _passKeyServices;
 
         public UserManager(IPassKeyServices passKeyServices)
@@ -24,6 +26,15 @@ namespace DXConfig.Server.Managers
             var hashKey = _passKeyServices.CreateKey(userString);
             
             return new User(provider, username, hashKey);
+        }
+
+        public User CreateSecret(string secret)
+        {
+            IPassKey secretKey = _passKeyServices.CreateKey(secret);
+
+            string hash = secretKey.Hash;
+
+            return CreateUser(SecretProvider, hash);
         }
 
         User CreateUser(string provider, string username, string keyValue, string keyHash)

@@ -10,7 +10,7 @@ namespace Test.Server
 {
     public class ConfigurationServerManagerTest
     {
-        [Fact]
+        [Fact(Skip="still working on")]
         void Test()
         {
             var location = new LocationManager();

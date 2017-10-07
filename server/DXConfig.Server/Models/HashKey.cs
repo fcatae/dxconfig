@@ -19,7 +19,7 @@ namespace DXConfig.Server.Models
 
         public override string ToString()
         {
-            return "{Value}:{Hash}";
+            return $"{Value}:{Hash}";
         }
     }
 }
