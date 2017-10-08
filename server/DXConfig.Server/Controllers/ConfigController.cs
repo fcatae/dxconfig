@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DXConfig.Server.Infra;
-using DXConfig.Server.Interfaces;
 using DXConfig.Server.Managers;
 using DXConfig.Server.Models;
 using Microsoft.AspNetCore.Mvc;

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DXConfig.Server.Interfaces;
 
 namespace DXConfig.Server.Models
 {
-    public class StringData : IConfigData, IData
+    public class StringData : IData
     {
         private string _value;
 

@@ -21,27 +21,6 @@ namespace DXConfig.Server.Validations
         }
         public void Validate()
         {
-            var initialData = new ConfigData();
-            var store = new MemoryDataStore();
-
-            // Try read "myapp001": no secrets
-            var configData1 = store.Read("myapp001");
-
-            // Write secrets
-            store.Write("myapp001", initialData);
-
-            // Try read "myapp001": should return value
-            var configData2 = store.Read("myapp001");
-
-            // Test controller
-            //var dataStore = new MemoryDataStore();
-            //var nameResolver = new ApplicationResolver();
-            //dataStore.Write("myapp001/prod", new ConfigData());
-            //var secureStore = new SecureDataStore(new MemoryDataStore());
-            //var configMgr = new ConfigurationManager(nameResolver, dataStore, secureStore);
-
-            //configMgr.Create("myapp001", "dev", "{<<devsecrets>>}");
-
             var location = new AppResourceLocationManager();
             var storage = new StorageManager();
             var configSrv = new ConfigServerManager<AppResource>(location, storage);
