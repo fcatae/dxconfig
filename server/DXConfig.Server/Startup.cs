@@ -34,7 +34,8 @@ namespace DXConfig.Server
         {
             if(Env.EnvironmentName == "Test")
             {
-                services.AddTransient<IUserAccessHandler, GuestUserAccessHandler>();
+                services.AddTransient<IUserAccessHandler, GeneralUserAccessHandler>();
+                services.Configure<GeneralUserAccessHandlerOptions>(o => { o.Username = "testuser"; });
             }
             else
             {
@@ -49,11 +50,8 @@ namespace DXConfig.Server
 
             services.AddSingleton<IConfigServerManager<AppResource>, ConfigServerManager<AppResource>>();
             services.AddSingleton<IConfigServerManager<AppLink>, ConfigServerManager<AppLink>>();
-
-            //services.AddSingleton<INameResolver, ApplicationResolver>();
-
+            
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                // QueryStringAuthenticationMiddleware.AddScheme<QueryAuthOptions, QueryStringAuthenticationHandler>("qswhat", o => { o.ClaimsIssuer = "qswhat-issuer"; })
                 //.AddOAuth("git", o => {
                 //    //AuthenticationScheme = "GitHub",
                 //    //DisplayName = "GitHub",
@@ -100,10 +98,6 @@ namespace DXConfig.Server
 
         void SeedMockupData(IServiceProvider services)
         {
-            // create myapp001
-            //var configManager = services.GetService<IConfigurationManager>();
-            //((ConfigurationManager)configManager).Create("myapp001", "dev", "{secrets}");
-
             var configSrv = services.GetService<IConfigServerManager<AppResource>>();
             configSrv.Create(null, new AppResource("myapp001", "dev"), new StringData("{secrets}"));
 
