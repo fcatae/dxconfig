@@ -10,8 +10,7 @@ namespace Test.Server
 {
     public class ConfigurationServerManagerTest
     {
-        [Fact(Skip="still working on")]
-        void Test()
+        void SimpleTest()
         {
             var location = new AppResourceLocationManager();
             var storage = new StorageManager();
@@ -22,8 +21,10 @@ namespace Test.Server
 
             var user = userMgr.CreateUser("test", "fabricio");
 
-            csm.Create(null, null, null);
-            csm.Retrieve(null, null);
+            csm.Create(user, new AppResource("webapp001", "dev"), new StringData("secrets"));
+            var res = csm.Retrieve(user, new AppResource("webapp001", "dev"));
+
+            Assert.Equal(res.ToString(), "secrets");
         }
     }
 }

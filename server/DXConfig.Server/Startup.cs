@@ -52,16 +52,16 @@ namespace DXConfig.Server
             services.AddSingleton<IConfigServerManager<AppLink>, ConfigServerManager<AppLink>>();
 
             services.AddSingleton<INameResolver, ApplicationResolver>();
-            services.AddSingleton<IConfigurationManager>( s => {
+            //services.AddSingleton<IConfigurationManager>( s => {
 
-                var nameResolver = s.GetService<INameResolver>();
-                var keyStore = new MemoryDataStore();
-                var configStore = new SecureDataStore(new MemoryDataStore());
+            //    var nameResolver = s.GetService<INameResolver>();
+            //    var keyStore = new MemoryDataStore();
+            //    var configStore = new SecureDataStore(new MemoryDataStore());
 
-                var config = new ConfigurationManager(nameResolver, keyStore, configStore);
+            //    var config = new ConfigurationManager(nameResolver, keyStore, configStore);
 
-                return config;
-            });
+            //    return config;
+            //});
             services.AddSingleton<ILocatorManager, LocatorManager>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
