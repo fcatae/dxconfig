@@ -16,11 +16,10 @@ namespace DXConfig.Server.Controllers
         IConfigurationServerManager<AppLink> _configServer;
         private readonly IUserAccessHandler _userAccess;
 
-        public AppLinkController(IUserAccessHandler userAccess)
-        {
-            //IConfigurationServerManager<AppLink> configServer, 
-            //_configServer = configServer;
-            this._userAccess = userAccess;
+        public AppLinkController(IConfigurationServerManager<AppLink> configServer, IUserAccessHandler userAccess)
+        {            
+            _configServer = configServer;
+            _userAccess = userAccess;
         }
 
         // GET api/applink

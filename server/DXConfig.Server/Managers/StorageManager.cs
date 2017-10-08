@@ -18,12 +18,12 @@ namespace DXConfig.Server.Managers
             _store = new MemoryDataStore();
         }
 
-        public IData Read(string container, IPassKey key)
+        public IData Read(IUser user, string container)
         {
             return _store.ReadData(container);
         }
 
-        public void Write(string container, IData data, IPassKey key)
+        public void Write(IUser user, string container, IData data)
         {
             _store.WriteData(container, data);
         }

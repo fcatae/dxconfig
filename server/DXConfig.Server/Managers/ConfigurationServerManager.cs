@@ -12,9 +12,9 @@ namespace DXConfig.Server.Managers
         private ILocationManager<T> _locator;
         private IStorageManager _store;
 
-        public ConfigurationServerManager(ILocationManager<T> locator, StorageManager store)
+        public ConfigurationServerManager(ILocationManager<T> location, IStorageManager store)
         {
-            this._locator = locator;
+            this._locator = location;
             this._store = store;
         }
 
@@ -28,7 +28,7 @@ namespace DXConfig.Server.Managers
                 throw new InvalidOperationException("container == null");
             }
 
-            _store.Write(container, config, null);
+            _store.Write(user, container, config);
         }
 
         public IData Retrieve(IUser user, T resource)
@@ -39,7 +39,7 @@ namespace DXConfig.Server.Managers
             if (container == null)
                 return null;
 
-            var data = _store.Read(container, null);
+            var data = _store.Read(user, container);
 
             // data could not be retrieved
             if (data == null)
