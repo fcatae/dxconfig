@@ -6,16 +6,20 @@ using DXConfig.Server.Models;
 
 namespace DXConfig.Server.Managers
 {
-    public class LocationManager : ILocationManager<IResource>
+    public class AppResourceLocationManager : ILocationManager<AppResource>
     {        
-        public string Create(IUser user, IResource resource)
+        public string Create(IUser user, AppResource resource)
         {
-            throw new NotImplementedException();
+            // check CREATE permission
+            
+            return resource.Name + resource.Environment;
         }
 
-        public string Resolve(IUser user, IResource resource)
+        public string Resolve(IUser user, AppResource resource)
         {
-            throw new NotImplementedException();
+            // check READ permission
+
+            return resource.Name + resource.Environment;
         }
     }
 

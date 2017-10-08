@@ -35,10 +35,11 @@ namespace DXConfig.Server
 
             services.AddSingleton<IUserManager>(s => new UserManager(new PassKeyServices("123")));
 
+            services.AddSingleton<ILocationManager<AppResource>, AppResourceLocationManager>();
             services.AddSingleton<ILocationManager<AppLink>, AppLinkLocationManager>();
             services.AddSingleton<IStorageManager, StorageManager>();
 
-            services.AddSingleton<IConfigurationServerManager<AppLink>, ConfigurationServerManager<AppLink>>();
+            services.AddSingleton<IConfigServerManager<AppLink>, ConfigServerManager<AppLink>>();
 
             services.AddSingleton<INameResolver, ApplicationResolver>();
             services.AddSingleton<IConfigurationManager>( s => {

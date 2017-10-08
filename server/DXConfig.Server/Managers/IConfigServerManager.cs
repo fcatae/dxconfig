@@ -6,7 +6,7 @@ using DXConfig.Server.Models;
 
 namespace DXConfig.Server.Managers
 {
-    public interface IConfigurationServerManager<T>
+    public interface IConfigServerManager<T>
         where T: IResource
     {
         void Create(IUser user, T resource, IData config);

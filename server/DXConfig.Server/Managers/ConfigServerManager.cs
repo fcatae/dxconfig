@@ -6,13 +6,13 @@ using DXConfig.Server.Models;
 
 namespace DXConfig.Server.Managers
 {
-    public class ConfigurationServerManager<T> : IConfigurationServerManager<T>
+    public class ConfigServerManager<T> : IConfigServerManager<T>
         where T: IResource
     {
         private ILocationManager<T> _locator;
         private IStorageManager _store;
 
-        public ConfigurationServerManager(ILocationManager<T> location, IStorageManager store)
+        public ConfigServerManager(ILocationManager<T> location, IStorageManager store)
         {
             this._locator = location;
             this._store = store;

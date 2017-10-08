@@ -13,12 +13,12 @@ namespace Test.Server
         [Fact(Skip="still working on")]
         void Test()
         {
-            var location = new LocationManager();
+            var location = new AppResourceLocationManager();
             var storage = new StorageManager();
 
             var userMgr = new UserManager(new PassKeyServices("123"));
 
-            var csm = new ConfigurationServerManager<IResource>(location, storage);
+            var csm = new ConfigServerManager<AppResource>(location, storage);
 
             var user = userMgr.CreateUser("test", "fabricio");
 

@@ -13,10 +13,10 @@ namespace DXConfig.Server.Controllers
     [Route("api/[controller]")]
     public class AppLinkController : Controller
     {
-        IConfigurationServerManager<AppLink> _configServer;
+        IConfigServerManager<AppLink> _configServer;
         private readonly IUserAccessHandler _userAccess;
 
-        public AppLinkController(IConfigurationServerManager<AppLink> configServer, IUserAccessHandler userAccess)
+        public AppLinkController(IConfigServerManager<AppLink> configServer, IUserAccessHandler userAccess)
         {            
             _configServer = configServer;
             _userAccess = userAccess;
