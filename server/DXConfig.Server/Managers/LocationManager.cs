@@ -12,14 +12,14 @@ namespace DXConfig.Server.Managers
         {
             // check CREATE permission
             
-            return resource.Name + resource.Environment;
+            return resource.Name + "/" + resource.Environment;
         }
 
         public string Resolve(IUser user, AppResource resource)
         {
             // check READ permission
 
-            return resource.Name + resource.Environment;
+            return resource.Name + "/" + resource.Environment;
         }
     }
 

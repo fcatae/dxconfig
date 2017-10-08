@@ -21,17 +21,26 @@ namespace DXConfig.Server
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Env { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IUserAccessHandler, UserAccessHandler>();
+            if(Env.EnvironmentName == "Test")
+            {
+                services.AddTransient<IUserAccessHandler, GuestUserAccessHandler>();
+            }
+            else
+            {
+                services.AddTransient<IUserAccessHandler, UserAccessHandler>();
+            }
 
             services.AddSingleton<IUserManager>(s => new UserManager(new PassKeyServices("123")));
 
@@ -39,6 +48,7 @@ namespace DXConfig.Server
             services.AddSingleton<ILocationManager<AppLink>, AppLinkLocationManager>();
             services.AddSingleton<IStorageManager, StorageManager>();
 
+            services.AddSingleton<IConfigServerManager<AppResource>, ConfigServerManager<AppResource>>();
             services.AddSingleton<IConfigServerManager<AppLink>, ConfigServerManager<AppLink>>();
 
             services.AddSingleton<INameResolver, ApplicationResolver>();
@@ -103,10 +113,14 @@ namespace DXConfig.Server
         void SeedMockupData(IServiceProvider services)
         {
             // create myapp001
-            var configManager = services.GetService<IConfigurationManager>();
-            ((ConfigurationManager)configManager).Create("myapp001", "dev", "{secrets}");
+            //var configManager = services.GetService<IConfigurationManager>();
+            //((ConfigurationManager)configManager).Create("myapp001", "dev", "{secrets}");
+
+            var configSrv = services.GetService<IConfigServerManager<AppResource>>();
+            configSrv.Create(null, new AppResource("myapp001", "dev"), new StringData("{secrets}"));
+
         }
-        
+
         private static async Task CreateGitHubAuthTicket(OAuthCreatingTicketContext context)
         {
             // Get the GitHub user

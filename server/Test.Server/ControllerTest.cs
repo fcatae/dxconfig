@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using DXConfig.Server.Infra;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
 namespace Test.Server
@@ -17,15 +19,17 @@ namespace Test.Server
         public ControllerTest()
         {
             _server = new TestServer(WebServerConfiguration());
-
+            
             _client = _server.CreateClient();
         }
 
         IWebHostBuilder WebServerConfiguration()
         {
-            return new WebHostBuilder().UseStartup<DXConfig.Server.Startup>();
+            return new WebHostBuilder()
+                .UseEnvironment("Test")
+                .UseStartup<DXConfig.Server.Startup>();
         }
-
+        
         [Fact]
         public Task ConfigGetAll() => ValidateUrlAsync("/api/config");
 

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DXConfig.Server.Infra;
 using DXConfig.Server.Interfaces;
 using DXConfig.Server.Managers;
+using DXConfig.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DXConfig.Server.Controllers
@@ -11,11 +13,15 @@ namespace DXConfig.Server.Controllers
     [Route("api/[controller]")]
     public class ConfigController : Controller
     {
-        ConfigurationManager _configMgr;
+        //ConfigurationManager _configMgr;
+        private readonly IConfigServerManager<AppResource> _configSrv;
+        private readonly IUserAccessHandler _userAccess;
 
-        public ConfigController(IConfigurationManager configMgr)
+        public ConfigController(IConfigServerManager<AppResource> configSrv, IUserAccessHandler userAccess)
         {
-            _configMgr = (ConfigurationManager)configMgr;
+            //_configMgr = (ConfigurationManager)configMgr;
+            _configSrv = configSrv;
+            _userAccess = userAccess;
         }
 
         // GET api/values
@@ -32,14 +38,26 @@ namespace DXConfig.Server.Controllers
             if (appid == null)
                 throw new ArgumentNullException("appid");
 
-            return _configMgr.Retrieve(appid, "dev");
+            var user = _userAccess.GetUser();
+            var resource = new AppResource(appid, "dev");
+
+            var data = _configSrv.Retrieve(user, resource);
+
+            if (data == null)
+                return null;
+
+            return data.ToString();
+            //return _configMgr.Retrieve(appid, "dev");
         }
 
         // POST api/config/myapp001
         [HttpPost("{appid}")]
         public void Post([FromRoute]string appid, [FromBody]string value)
         {
-            _configMgr.Create(appid, "dev", value);
+            var user = _userAccess.GetUser();
+            var resource = new AppResource(appid, "dev");
+
+            _configSrv.Create(user, resource, new StringData(value));
         }
 
         // PUT api/config/myapp001
