@@ -35,10 +35,14 @@ namespace DXConfig.Server
             services.AddSingleton<IUserManager>(s => new UserManager(new PassKeyServices("123")));
 
             services.AddSingleton<ILocationManager<AppResource>, AppResourceLocationManager>();
-            services.AddSingleton<ILocationManager<AppLink>, AppLinkLocationManager>();
+            //services.AddSingleton<ILocationManager<AppLink>, AppLinkLocationManager>();
             services.AddSingleton<IStorageManager, StorageManager>();
-
-            services.AddSingleton<IConfigServerManager<AppLink>, ConfigServerManager<AppLink>>();
+            
+            services.AddSingleton<IConfigServerManager<AppLink>>(svcs => {
+                var location = new AppLinkLocationManager(FileDataStore.Create("tmp/links"));                
+                var storage = new StorageManager(FileDataStore.Create("tmp/links"));
+                return new ConfigServerManager<AppLink>(location, storage);
+            });
 
             services.AddSingleton<IConfigServerManager<AppResource>>( svcs => {
                 var location = svcs.GetService<ILocationManager<AppResource>>();

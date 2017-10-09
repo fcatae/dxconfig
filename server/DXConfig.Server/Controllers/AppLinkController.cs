@@ -12,6 +12,8 @@ namespace DXConfig.Server.Controllers
     [Route("api/[controller]")]
     public class AppLinkController : Controller
     {
+        AppResourceLocationManager appResourceLocation = new AppResourceLocationManager();
+
         IConfigServerManager<AppLink> _configServer;
         private readonly IUserAccessHandler _userAccess;
 
@@ -46,13 +48,25 @@ namespace DXConfig.Server.Controllers
             return data.ToString();
         }
 
-        // POST api/config/myapp001
+        // GET applink/create?link=<>&location=<>
+        [HttpGet("create")]
+        public void Create([FromQuery]string link, [FromQuery]string location)
+        {
+            this.Post(link, location);
+        }
+
+        // POST api/applink/myapp001 (body=value)
         [HttpPost("{appid}")]
         public void Post([FromRoute]string appid, [FromBody]string value)
         {
             var user = _userAccess.GetUser();
             var appResource = new AppLink(appid);
-            var data = new StringData(value);
+
+            var appLocation = new AppResource(value, "dev");
+
+            string targetLocation = appResourceLocation.Resolve(null, appLocation);
+
+            var data = new StringData(targetLocation);
 
             _configServer.Create(user, appResource, data);
         }

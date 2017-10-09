@@ -10,15 +10,15 @@ namespace DXConfig.Server.Managers
 {
     public class AppResourceLocationManager : ILocationManager<AppResource>
     {
-        public string Create(IUser user, AppResource resource, string location)
-        {
-            string container = WebUtility.UrlEncode(resource.Name) + "/" + WebUtility.UrlEncode(resource.Environment);
+        //public string Create(IUser user, AppResource resource, string location)
+        //{
+        //    string container = WebUtility.UrlEncode(resource.Name) + "/" + WebUtility.UrlEncode(resource.Environment);
 
-            // check CREATE permission
-            // return null if the user does not have access (eg, env=prod)
+        //    // check CREATE permission
+        //    // return null if the user does not have access (eg, env=prod)
 
-            return container;
-        }
+        //    return container;
+        //}
 
         public string Resolve(IUser user, AppResource resource)
         {

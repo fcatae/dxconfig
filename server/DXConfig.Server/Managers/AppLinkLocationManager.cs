@@ -16,16 +16,16 @@ namespace DXConfig.Server.Managers
             _store = store;
         }
 
-        public string Create(IUser user, AppLink resource, string location)
-        {
-            string containerName = resource.Link;
+        //public string Create(IUser user, AppLink resource, string location)
+        //{
+        //    string containerName = resource.Link;
 
-            // check CREATE permission
+        //    // check CREATE permission
 
-            // _store.WriteData(containerName, new StringData(location));
+        //    // _store.WriteData(containerName, new StringData(location));
 
-            return containerName;
-        }
+        //    return containerName;
+        //}
 
         public string Resolve(IUser user, AppLink resource)
         {
