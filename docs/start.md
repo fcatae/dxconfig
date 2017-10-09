@@ -17,7 +17,7 @@ Create links (Anonymous navigation)
 
 Cookie authentication
 
-
+    https://<endpoint_url>/portal
 
 Open browser
 

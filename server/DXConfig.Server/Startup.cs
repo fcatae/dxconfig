@@ -95,7 +95,7 @@ namespace DXConfig.Server
                 routes.MapRoute(
                     name: "portal",
                     template: "portal/{action}",                    
-                    defaults: new { controller = "Portal", action = "Index" });
+                    defaults: new { controller = "WebPortal", action = "index" });
 
                 //routes.MapRoute(
                 //    name: "default",
