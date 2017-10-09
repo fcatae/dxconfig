@@ -50,26 +50,13 @@ namespace DXConfig.Server
 
             services.AddSingleton<IConfigServerManager<AppResource>, ConfigServerManager<AppResource>>();
             services.AddSingleton<IConfigServerManager<AppLink>, ConfigServerManager<AppLink>>();
-            
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                //.AddOAuth("git", o => {
-                //    //AuthenticationScheme = "GitHub",
-                //    //DisplayName = "GitHub",
-                //    o.ClientId = Configuration["GitHub:ClientId"];
-                //    o.ClientSecret = Configuration["GitHub:ClientSecret"];
-                //    o.CallbackPath = new Microsoft.AspNetCore.Http.PathString("/signin-github");
-                //    o.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
-                //    o.TokenEndpoint = "https://github.com/login/oauth/access_token";
-                //    o.UserInformationEndpoint = "https://api.github.com/user";
-                //    o.ClaimsIssuer = "OAuth2-Github";
-                //    o.SaveTokens = true;
-                    
-                //    // Retrieving user information is unique to each provider.
-                //    o.Events = new OAuthEvents
-                //    {
-                //        OnCreatingTicket = async context => { await CreateGitHubAuthTicket(context); }
-                //    };
-                //})
+                .AddGithub(o =>
+                {
+                    o.ClientId = Configuration["GitHub:ClientId"];
+                    o.ClientSecret = Configuration["GitHub:ClientSecret"];
+                })
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                 {                    
                     options.AccessDeniedPath = "/AccountForbidden";
@@ -110,27 +97,6 @@ namespace DXConfig.Server
         {
             var configSrv = services.GetService<IConfigServerManager<AppResource>>();
             configSrv.Create(null, new AppResource("myapp001", "dev"), new StringData("{secrets}"));
-
-        }
-
-        private static async Task CreateGitHubAuthTicket(OAuthCreatingTicketContext context)
-        {
-            // Get the GitHub user
-            var request = new System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Get, context.Options.UserInformationEndpoint);
-            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", context.AccessToken);
-            request.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-            var response = await context.Backchannel.SendAsync(request, context.HttpContext.RequestAborted);
-            response.EnsureSuccessStatusCode();
-
-            string content = await response.Content.ReadAsStringAsync();
-
-            var res = Newtonsoft.Json.Linq.JObject.Parse(content);
-            string login = res.GetValue("login").ToString();
-            context.Identity.AddClaim(new System.Security.Claims.Claim("nome", login));
-
-            //var user = JObject.Parse();
-            //            AddClaims(context, user);
         }
     }
 }
