@@ -6,6 +6,7 @@ using DXConfig.Server.Infra;
 using DXConfig.Server.Managers;
 using DXConfig.Server.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace DXConfig.Server.Controllers
 {
@@ -32,20 +33,17 @@ namespace DXConfig.Server.Controllers
 
         // GET api/applink/myapp001
         [HttpGet("{appid}")]
-        public string Get(string appid)
+        public IActionResult Get(string appid)
         {
-            if (appid == null)
-                throw new ArgumentNullException("appid");
-
             var user = _userAccess.GetUser();
             var appResource = new AppLink(appid);
 
             var data = _configServer.Retrieve(user, appResource);
 
             if (data == null)
-                return "(null)";
+                return NotFound();
 
-            return data.ToString();
+            return RedirectToRoute("Storage_Get", new { container = WebUtility.UrlEncode(data.ToString()) });
         }
 
         // GET applink/create?link=<>&location=<>

@@ -36,7 +36,9 @@ namespace DXConfig.Server
 
             services.AddSingleton<ILocationManager<AppResource>, AppResourceLocationManager>();
             //services.AddSingleton<ILocationManager<AppLink>, AppLinkLocationManager>();
-            services.AddSingleton<IStorageManager, StorageManager>();
+            services.AddSingleton<IStorageManager>( svcs => {
+                return new StorageManager(FileDataStore.Create("tmp/apps"));
+            });
             
             services.AddSingleton<IConfigServerManager<AppLink>>(svcs => {
                 var location = new AppLinkLocationManager(FileDataStore.Create("tmp/links"));                
@@ -46,7 +48,8 @@ namespace DXConfig.Server
 
             services.AddSingleton<IConfigServerManager<AppResource>>( svcs => {
                 var location = svcs.GetService<ILocationManager<AppResource>>();
-                var storage = new StorageManager( FileDataStore.Create("tmp/apps") );
+                var storage = svcs.GetService<IStorageManager>();
+                
                 return new ConfigServerManager<AppResource>(location, storage);
             });
             
