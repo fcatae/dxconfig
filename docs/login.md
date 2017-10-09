@@ -59,3 +59,16 @@ Client: Command line
 10. Session API receives the Github token at /api/session/complete (auth?)
 11. Client is notified at /api/session/wait of successful auth
 12. Client downloads IPassKey at /api/session/retrieve with clientinfo
+
+
+
+Portal 
+========
+
+1. Login in the Portal using GitHub
+2. Create a user Profile
+3. Generate a link for login
+
+    dxconfig login http://<endpointurl>/api/session/login_token=123456789
+
+4. Client application calls the login_token
