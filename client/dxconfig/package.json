@@ -1,6 +1,6 @@
 {
   "name": "dxconfig",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Configuration management",
   "main": "./lib/main",
   "bin": {
@@ -10,7 +10,8 @@
     "start": "dxconfig",
     "build": "tsc",
     "watch": "tsc -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "npm publish"
   },
   "repository": {
     "type": "git",
