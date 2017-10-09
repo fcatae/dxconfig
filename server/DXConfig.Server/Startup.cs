@@ -32,16 +32,6 @@ namespace DXConfig.Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            if(Env.EnvironmentName == "Test")
-            {
-                services.AddTransient<IUserAccessHandler, GeneralUserAccessHandler>();
-                services.Configure<GeneralUserAccessHandlerOptions>(o => { o.Username = "testuser"; });
-            }
-            else
-            {
-                services.AddTransient<IUserAccessHandler, UserAccessHandler>();
-            }
-
             services.AddSingleton<IUserManager>(s => new UserManager(new PassKeyServices("123")));
 
             services.AddSingleton<ILocationManager<AppResource>, AppResourceLocationManager>();
@@ -51,17 +41,27 @@ namespace DXConfig.Server
             services.AddSingleton<IConfigServerManager<AppResource>, ConfigServerManager<AppResource>>();
             services.AddSingleton<IConfigServerManager<AppLink>, ConfigServerManager<AppLink>>();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            if (Env.EnvironmentName == "Test")
+            {
+                services.AddTransient<IUserAccessHandler, GeneralUserAccessHandler>();
+                services.Configure<GeneralUserAccessHandlerOptions>(o => { o.Username = "testuser"; });
+            }
+            else
+            {
+                services.AddTransient<IUserAccessHandler, UserAccessHandler>();
+
+                services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+                {
+                    options.AccessDeniedPath = "/AccountForbidden";
+                    options.LoginPath = "/AccountUnauthorized";
+                })
                 .AddGithub(o =>
                 {
                     o.ClientId = Configuration["GitHub:ClientId"];
                     o.ClientSecret = Configuration["GitHub:ClientSecret"];
-                })
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
-                {                    
-                    options.AccessDeniedPath = "/AccountForbidden";
-                    options.LoginPath = "/AccountUnauthorized";
                 });
+            }
 
             services.AddMvc();
         }
