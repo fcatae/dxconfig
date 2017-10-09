@@ -41,7 +41,7 @@ namespace DXConfig.Server
             services.AddSingleton<IConfigServerManager<AppResource>, ConfigServerManager<AppResource>>();
             services.AddSingleton<IConfigServerManager<AppLink>, ConfigServerManager<AppLink>>();
 
-            if (Env.EnvironmentName == "Test")
+            if (Env.EnvironmentName == "Test" || (Env.IsProduction() == false) )
             {
                 services.AddTransient<IUserAccessHandler, GeneralUserAccessHandler>();
                 services.Configure<GeneralUserAccessHandlerOptions>(o => { o.Username = "testuser"; });
