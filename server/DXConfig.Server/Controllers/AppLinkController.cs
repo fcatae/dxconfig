@@ -41,7 +41,7 @@ namespace DXConfig.Server.Controllers
             var data = _configServer.Retrieve(user, appResource);
 
             if (data == null)
-                return null;
+                return "(null)";
 
             return data.ToString();
         }
