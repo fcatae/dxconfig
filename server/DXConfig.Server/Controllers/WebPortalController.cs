@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DXConfig.Server.Controllers
 {
-    //[Route("[controller]/[action]")]
-    public class PortalController : Controller
+    [Route("portal/[action]")]
+    public class WebPortalController : Controller
     {
         // GET: Portal
         public ActionResult Index()

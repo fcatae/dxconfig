@@ -33,6 +33,9 @@ namespace DXConfig.Server
 #if DEBUG
             ValidateConfigController configController = new ValidateConfigController();
             configController.Validate();
+
+            var validateDataStore = new ValidateDataStore();
+            validateDataStore.Validate();
 #endif
         }
     }

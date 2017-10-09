@@ -7,22 +7,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DXConfig.Server.Pages
 {
-    [Authorize(AuthenticationSchemes="GitHub")]
     public class AuthGitModel : PageModel
     {
         public string Message { get; set; }
 
         public async Task OnGetAsync()
         {
-            //var result = await HttpContext.AuthenticateAsync("git");
+            var result = await HttpContext.AuthenticateAsync("git");
 
-            //if( result.Principal == null )
-            //{
-            //    await HttpContext.ChallengeAsync("git");
-            //}
-
-            ////await HttpContext.SignOutAsync();
+            if (result.Principal == null)
+            {
+                await HttpContext.ChallengeAsync("git");
+            }
             
+            await Task.Delay(0);
+
             Message = "Your application description page.";
         }
     }
