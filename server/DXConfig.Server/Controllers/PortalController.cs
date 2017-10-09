@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DXConfig.Server.Controllers
 {
-    [Route("portal")]
+    //[Route("[controller]/[action]")]
     public class PortalController : Controller
     {
         // GET: Portal
@@ -17,7 +17,6 @@ namespace DXConfig.Server.Controllers
         }
 
         // GET: Portal/Details
-        [Route("details")]
         public ActionResult Details(int id)
         {
             return View();

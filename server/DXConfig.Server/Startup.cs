@@ -91,7 +91,17 @@ namespace DXConfig.Server
 
             app.UseQueryStringAuthentication();
 
-            app.UseMvc();
+            app.UseMvc( routes =>
+            {
+                routes.MapRoute(
+                    name: "portal",
+                    template: "portal/{action}",                    
+                    defaults: new { controller = "Portal", action = "Index" });
+
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{controller}");
+            });
             
             SeedMockupData(services);
         }
