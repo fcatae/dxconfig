@@ -18,6 +18,7 @@ Create links (Anonymous navigation)
 Cookie authentication
 
     https://<endpoint_url>/portal
+    https://<endpoint_url>/portal/login
 
 Open browser
 

@@ -53,7 +53,7 @@ namespace DXConfig.Server
                 return new ConfigServerManager<AppResource>(location, storage);
             });
             
-            if (Env.EnvironmentName == "Test" || (Env.IsProduction() == false) )
+            if (Env.EnvironmentName == "Test") // || (Env.IsProduction() == false)
             {
                 services.AddTransient<IUserAccessHandler, GeneralUserAccessHandler>();
                 services.Configure<GeneralUserAccessHandlerOptions>(o => { o.Username = "testuser"; });
@@ -66,7 +66,7 @@ namespace DXConfig.Server
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
                 {
                     options.AccessDeniedPath = "/AccountForbidden";
-                    options.LoginPath = "/AccountUnauthorized";
+                    options.LoginPath = "/portal/login";
                 })
                 .AddGithub(o =>
                 {
