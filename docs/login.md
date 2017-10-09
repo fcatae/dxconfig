@@ -72,3 +72,9 @@ Portal
     dxconfig login http://<endpointurl>/api/session/login_token=123456789
 
 4. Client application calls the login_token
+
+
+Shortcuts
+===========
+
+    dxconfig get http://<endpoint_url/app/arda
