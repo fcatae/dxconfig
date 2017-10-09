@@ -17,6 +17,10 @@ namespace DXConfig.Server.Managers
         {
             _store = new MemoryDataStore();
         }
+        public StorageManager(IStoreServices store)
+        {
+            _store = store;
+        }
 
         public IData Read(IUser user, string container)
         {

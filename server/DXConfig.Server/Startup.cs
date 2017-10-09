@@ -38,9 +38,14 @@ namespace DXConfig.Server
             services.AddSingleton<ILocationManager<AppLink>, AppLinkLocationManager>();
             services.AddSingleton<IStorageManager, StorageManager>();
 
-            services.AddSingleton<IConfigServerManager<AppResource>, ConfigServerManager<AppResource>>();
             services.AddSingleton<IConfigServerManager<AppLink>, ConfigServerManager<AppLink>>();
 
+            services.AddSingleton<IConfigServerManager<AppResource>>( svcs => {
+                var location = svcs.GetService<ILocationManager<AppResource>>();
+                var storage = new StorageManager( FileDataStore.Create("tmp/apps") );
+                return new ConfigServerManager<AppResource>(location, storage);
+            });
+            
             if (Env.EnvironmentName == "Test" || (Env.IsProduction() == false) )
             {
                 services.AddTransient<IUserAccessHandler, GeneralUserAccessHandler>();

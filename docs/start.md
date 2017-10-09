@@ -8,8 +8,12 @@ Help
 
 Open browser (Anonymous navigation)
 
-    https://<endpoint_url>/applink/token
-    https://<endpoint_url>/api/applink/token
+    https://<endpoint_url>/api/locator/app
+
+Create links (Anonymous navigation)
+
+    https://<endpoint_url>/applink/create?link=<>&location=<> (for testing)
+    https://<endpoint_url>/api/applink/<link>
 
 Cookie authentication
 

@@ -43,10 +43,9 @@ namespace DXConfig.Server.Controllers
             var data = _configSrv.Retrieve(user, resource);
 
             if (data == null)
-                return null;
+                return "(null)";
 
             return data.ToString();
-            //return _configMgr.Retrieve(appid, "dev");
         }
 
         // POST api/config/myapp001

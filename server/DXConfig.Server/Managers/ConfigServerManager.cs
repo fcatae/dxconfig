@@ -20,7 +20,7 @@ namespace DXConfig.Server.Managers
 
         public void Create(IUser user, T resource, IData config)
         {
-            string container = _locator.Create(user, resource);
+            string container = _locator.Resolve(user, resource);
 
             if (container == null)
             {
