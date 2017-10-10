@@ -24,8 +24,8 @@ namespace DXConfig.Server.Controllers
         }
 
         // GET api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet(Name="Config_Start")]
+        public IEnumerable<string> Start()
         {
             return new string[] { "myapp001", "myapp002" };
         }

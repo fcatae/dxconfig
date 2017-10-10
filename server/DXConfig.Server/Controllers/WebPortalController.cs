@@ -130,7 +130,12 @@ namespace DXConfig.Server.Controllers
 
             string token = _userManager.ExportUser(user);
 
-            string url = Url.Action(nameof(ConfigController.Get), nameof(ConfigController));
+            string action = (string)nameof(ConfigController.Start);
+            string controller = (string)nameof(ConfigController);
+
+            //string url = Url.RouteUrl("portal", new { controller = "WebPortal", action = "index" }, "https", Request.Host.Value);
+
+            string url = Url.RouteUrl("Config_Start", new { }, Request.Protocol, Request.Host.Value);
 
             return $"dxconfig login {token}@{url}";
         }
