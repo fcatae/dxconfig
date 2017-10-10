@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DXConfig.Server.Managers;
 using DXConfig.Server.Models;
@@ -23,7 +24,7 @@ namespace DXConfig.Server.Infra
         {
             if( _context.User != null && _context.User.Identity.IsAuthenticated )
             {
-                string username = _context.User.Identity.Name;
+                string username = _context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
 
                 return _userManager.CreateUser("test", username);
             }

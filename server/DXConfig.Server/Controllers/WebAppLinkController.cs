@@ -2,19 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DXConfig.Server.Infra;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DXConfig.Server.Controllers
 {
-    [Route("applink")]
+    [Authorize]
     public class WebAppLinkController : Controller
     {
-        // GET: Applink
-        [HttpGet("{id}")]
-        public string Details(string id)
+        private readonly IUserAccessHandler _userAccess;
+
+        public WebAppLinkController(IUserAccessHandler userAccess)
         {
-            return $"applink:{id}";
+            this._userAccess = userAccess;
         }
+
+        // GET: Applink
+        public string Show([FromQuery]string link)
+        {
+            var user = _userAccess.GetUser();
+            
+            return $"applink:{user.Name},{link}";
+        }
+
+        // GET: Applink
+        public string Create([FromQuery]string link)
+        {
+            return $"applink:{link}";
+        }
+
     }
 }

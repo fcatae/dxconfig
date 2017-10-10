@@ -97,9 +97,10 @@ namespace DXConfig.Server
                     template: "portal/{action}",                    
                     defaults: new { controller = "WebPortal", action = "index" });
 
-                //routes.MapRoute(
-                //    name: "default",
-                //    template: "{controller}");
+                routes.MapRoute(
+                    name: "applink",
+                    template: "applink/{action}",
+                    defaults: new { controller = "WebAppLink" });
             });
             
             SeedMockupData(services);

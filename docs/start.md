@@ -12,13 +12,18 @@ Open browser (Anonymous navigation)
 
 Create links (Anonymous navigation)
 
-    https://<endpoint_url>/applink/create?link=<>&location=<> (for testing)
+    https://<endpoint_url>/api/applink/create?link=<>&location=<> (for testing)
     https://<endpoint_url>/api/applink/<link>
 
-Cookie authentication
+Cookie authentication and multiple logins
 
     https://<endpoint_url>/portal
     https://<endpoint_url>/portal/login
+
+Show applink only if logged
+
+    https://<endpoint_url>/applink/show?link=<>
+    https://<endpoint_url>/applink/create?link=<>&location=<>
 
 Open browser
 

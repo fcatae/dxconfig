@@ -46,7 +46,7 @@ namespace DXConfig.Server.Controllers
             return RedirectToRoute("Storage_Get", new { container = WebUtility.UrlEncode(data.ToString()) });
         }
 
-        // GET applink/create?link=<>&location=<>
+        // GET api/applink/create?link=<>&location=<>
         [HttpGet("create")]
         public void Create([FromQuery]string link, [FromQuery]string location)
         {
