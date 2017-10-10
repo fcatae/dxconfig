@@ -31,11 +31,15 @@ Download user identity if logged
 
 Add a command line to initialize
 
-    dxconfig login blablabla@<endpoint_url>
+    dxconfig login <session_token>@<endpoint_url>
 
+validate the token
 Write to userhome
 Read .dxconfig
 Init .dxconfig
+
+Chamar a API usando Bearer Tokens
+
 
 Pull configuration
 
