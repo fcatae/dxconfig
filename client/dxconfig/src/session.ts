@@ -75,7 +75,7 @@ function logoutConfig(filename) {
 }
 
 function loadConfig(filename) {
-    var data = fs.readFileSync(filename);
+    var data = fs.readFileSync(filename, 'utf8');
     return JSON.parse(data);
 }
 
