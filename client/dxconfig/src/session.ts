@@ -11,9 +11,9 @@ var arg0 = process.argv[2];
 initSession(arg0)
 
 function initSession(initParam: string) {
-    // var comps = initParam.split('@');
-    // var jwtToken = comps[0];
-    // var endpoint = comps[1];
+    var comps = initParam.split('@');
+    var jwtToken = comps[0];
+    var endpoint = comps[1];
     
     console.log('initSession');
     // console.log(endpoint);
@@ -23,10 +23,10 @@ function initSession(initParam: string) {
     saveConfig(filename, endpoint, jwtToken);
 
     var config = loadConfig(filename);
-    //testSession(endpoint, jwtToken);
+    // //testSession(endpoint, jwtToken);
 
-    var jwtToken = config.token;
-    var endpoint = config.endpoint;
+    // var jwtToken = config.token;
+    // var endpoint = config.endpoint;
 
     // console.log(endpoint);
     // console.log(jwtToken);    

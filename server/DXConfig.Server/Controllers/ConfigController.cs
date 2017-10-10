@@ -54,6 +54,7 @@ namespace DXConfig.Server.Controllers
 
         // POST api/config/myapp001
         [HttpPost("{appid}")]
+        [AllowAnonymous]
         public void Post([FromRoute]string appid, [FromBody]string value)
         {
             var user = _userAccess.GetUser();
