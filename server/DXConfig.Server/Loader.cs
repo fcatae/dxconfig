@@ -36,6 +36,9 @@ namespace DXConfig.Server
 
             var validateDataStore = new ValidateDataStore();
             validateDataStore.Validate();
+
+            var validateUserManager = new ValidateUserManager();
+            validateUserManager.Validate();
 #endif
         }
     }

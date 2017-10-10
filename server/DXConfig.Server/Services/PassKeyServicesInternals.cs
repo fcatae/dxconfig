@@ -27,6 +27,7 @@ namespace DXConfig.Server.Services
         protected interface IHash
         {
             HashedData Hash(string value);
+            string Algorithm { get; }
         }
 
         protected static class Hash
@@ -43,12 +44,13 @@ namespace DXConfig.Server.Services
         protected class HashSha256 : IHash
         {
             HashAlgorithm _encryptionKey;
+            public string Algorithm => "HS256";
 
             public HashSha256(string secret)
             {
                 _encryptionKey = CreateEncryptionKey(secret);
             }
-
+            
             public HashedData Hash(string value)
             {
                 byte[] data = Encoding.UTF8.GetBytes(value);
@@ -73,9 +75,25 @@ namespace DXConfig.Server.Services
             string[] Encode(string[] components);
         }
 
-        protected class Text
+        protected class Encoder
         {
-            public static ITextSerializer UrlEncoder => new UrlTextEncoder();
+            public static ITextSerializer Url => new UrlTextEncoder();
+            public static ITextSerializer Plain => new PlainTextEncoder();
+            public static ITextSerializer Base64Url => new Base64UrlEncoder();
+
+        }
+
+        protected class PlainTextEncoder : ITextSerializer
+        {
+            public string[] Decode(string[] components) => components;
+
+            public string[] Encode(string[] components) => components;
+        }
+        protected class Base64UrlEncoder : ITextSerializer
+        {
+            Decoder utf8 = Encoding.UTF8.GetDecoder();
+            public string[] Decode(string[] components) => Apply(data => Encoding.UTF8.GetString(Base64UrlTextEncoder.Decode(data)), components);
+            public string[] Encode(string[] components) => Apply(data => Base64UrlTextEncoder.Encode(Encoding.UTF8.GetBytes(data)), components);
         }
 
         protected class UrlTextEncoder : ITextSerializer
@@ -83,13 +101,13 @@ namespace DXConfig.Server.Services
             public string[] Decode(string[] components) => Apply(WebUtility.UrlDecode, components);
 
             public string[] Encode(string[] components) => Apply(WebUtility.UrlEncode, components);
+        }
 
-            static string[] Apply(Func<string,string> func, string[] components)
-            {
-                var apply = components.Select(func);
+        static string[] Apply(Func<string, string> func, string[] components)
+        {
+            var apply = components.Select(func);
 
-                return apply.ToArray();
-            }
+            return apply.ToArray();
         }
     }
 }

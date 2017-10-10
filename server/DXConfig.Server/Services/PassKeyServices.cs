@@ -8,12 +8,15 @@ namespace DXConfig.Server.Services
 {    
     public partial class PassKeyServices : IPassKeyServices
     {
-        IHash _calculate;
-        protected ITextSerializer _text;
-        protected ByteConverterDelegate _convertToString;
+        private IHash _calculate;
+        private ITextSerializer _text;
+        private ByteConverterDelegate _convertToString;
+
+        protected IHash HashAlgorithm => _calculate;
+        protected ITextSerializer Text => _text;
 
         public PassKeyServices(string secrets) 
-            : this( Hash.Sha256(secrets), Hash.Base64Url, Text.UrlEncoder )
+            : this( Hash.Sha256(secrets), Hash.Base64Url, Encoder.Url )
         {
         }
 
@@ -23,31 +26,55 @@ namespace DXConfig.Server.Services
             _text = text;
             _convertToString = convertToString;
         }
-
+        
         public IPassKey CreateKey(params string[] components)
         {
             string value = Serialize(components);
 
-            return CreateHash(value);
+            var key = CreateHash(value);
+
+            return TransformKey(key);
         }
 
         protected virtual string Serialize(string[] components)
         {
             string[] safeComponents = _text.Encode(components);
 
-            return String.Join(':', safeComponents);
+            return String.Join('.', safeComponents);
         }
 
         protected virtual string[] Deserialize(string text)
         {
-            string[] components = text.Split(':');
+            string[] components = text.Split('.');
 
             return _text.Decode(components);
+        }
+
+        public virtual IPassKey ImportKey(string text)
+        {
+            return CreateHash(text);
+        }
+
+        public virtual string ExportKey(IPassKey key)
+        {
+            return key.Value;
+        }
+
+        public string[] GetComponents(IPassKey key)
+        {
+            string[] valuesBase64 = Deserialize(key.Value);
+
+            return _text.Decode(valuesBase64);
         }
 
         protected IPassKey CreateHash(string value)
         {
             return new HashKey(value, HashString(value));
+        }
+
+        protected virtual IPassKey TransformKey(IPassKey passKey)
+        {
+            return passKey;
         }
 
         string HashString(string value)

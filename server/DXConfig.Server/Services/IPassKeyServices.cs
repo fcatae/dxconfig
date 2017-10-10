@@ -10,5 +10,8 @@ namespace DXConfig.Server.Services
     {
         IPassKey CreateKey(params string[] components);
         bool ValidateKey(IPassKey key);
+        string[] GetComponents(IPassKey key);
+        IPassKey ImportKey(string text);
+        string ExportKey(IPassKey key);
     }
 }
