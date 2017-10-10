@@ -9,5 +9,6 @@ namespace DXConfig.Server.Managers
     public interface IUserManager
     {
         User CreateUser(string provider, string username);
+        string ExportUser(User user);
     }
 }

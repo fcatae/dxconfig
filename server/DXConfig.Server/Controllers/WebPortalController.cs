@@ -9,12 +9,22 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using DXConfig.Server.Infra;
 using System.Security.Claims;
+using DXConfig.Server.Managers;
 
 namespace DXConfig.Server.Controllers
 {
     [Authorize]
     public class WebPortalController : Controller
     {
+        private readonly IUserAccessHandler _userAccess;
+        private readonly IUserManager _userManager;
+
+        public WebPortalController(IUserAccessHandler userAccess, IUserManager userManager)
+        {
+            this._userAccess = userAccess;
+            this._userManager = userManager;
+        }
+
         // GET: Portal
         public async Task<ActionResult> Index()
         {
@@ -110,6 +120,14 @@ namespace DXConfig.Server.Controllers
             await HttpContext.SignOutAsync();
 
             return View();
+        }
+
+        [Authorize]
+        public string ClientIdentity()
+        {
+            var user = _userAccess.GetUser();
+
+            return _userManager.ExportUser(user);
         }
     }
 }

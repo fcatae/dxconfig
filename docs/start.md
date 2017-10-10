@@ -25,9 +25,17 @@ Show applink only if logged
     https://<endpoint_url>/applink/show?link=<>
     https://<endpoint_url>/applink/create?link=<>&location=<>
 
-Open browser
+Download user identity if logged
 
-    https://<endpoint_url>/api/apps/<appname>?env=<env>
+    https://<endpoint_url>/portal/clientidentity
+
+Add a command line to initialize
+
+    dxconfig login blablabla@<endpoint_url>
+
+Write to userhome
+Read .dxconfig
+Init .dxconfig
 
 Pull configuration
 
