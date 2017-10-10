@@ -15,14 +15,14 @@ function initSession(initParam) {
     // console.log(endpoint);
     // console.log(jwtToken);
     var filename = getDxUserConfiguration();
-    //saveConfig(filename, endpoint, jwtToken);
+    saveConfig(filename, endpoint, jwtToken);
     var config = loadConfig(filename);
     //testSession(endpoint, jwtToken);
     var jwtToken = config.token;
     var endpoint = config.endpoint;
     // console.log(endpoint);
     // console.log(jwtToken);    
-    testSession(endpoint, jwtToken);
+    // testSession(endpoint, jwtToken);
 }
 function getDxConfigHomeDir() {
     // if Windows
@@ -41,9 +41,19 @@ function getDxUserConfiguration() {
     // if Unix    
     return path.join(os.homedir(), '.dxconfig', filename);
 }
+function hasConfig(filename) {
+    return fs.existsSync(filename);
+}
 function saveConfig(filename, endpoint, jwtToken) {
+    if (hasConfig(filename)) {
+        console.log('file already exists');
+        return;
+    }
     var data = JSON.stringify({ endpoint: endpoint, token: jwtToken });
     fs.writeFileSync(filename, data);
+}
+function logoutConfig(filename) {
+    fs.unlinkSync(filename);
 }
 function loadConfig(filename) {
     var data = fs.readFileSync(filename);

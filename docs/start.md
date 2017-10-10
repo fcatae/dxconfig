@@ -35,8 +35,6 @@ Add a command line to initialize
     (download configuration to dxhome: configserver)    (or token.endpoint_url.json?)
     only one login allowed -- you cannot logout (to avoid uploading to the wrong server)
 
-how to prevent uploading the secrets to the wrong server?
-
 validate the session token - basta chamar uma api de teste (get config server's config? (!!!))
 
 Use command line
@@ -54,6 +52,10 @@ Using shortcuts
 
     dxconfig applink create     (returns http://<endpoint_url>/applink/blabla)
 
+
+how to prevent uploading the secrets to the wrong server?
+
+    add a property to file { "dxconfigserver": "http://<endpoint_url>" }
 
 Test environment
 
