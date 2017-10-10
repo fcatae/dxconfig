@@ -16,6 +16,7 @@ function testSession(endpoint, jwtToken) {
     var authOptions = {
         auth: { bearer: jwtToken }
     };
+    console.dir(authOptions);
     request
         .get(endpoint, authOptions)
         .on('error', function (err) {

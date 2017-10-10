@@ -10,5 +10,6 @@ namespace DXConfig.Server.Managers
     {
         User CreateUser(string provider, string username);
         string ExportUser(User user);
+        User ImportUser(string text);
     }
 }

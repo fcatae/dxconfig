@@ -15,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace DXConfig.Server
 {
@@ -60,6 +62,12 @@ namespace DXConfig.Server
             }
             else
             {
+                // Add JWT generation endpoint:
+                string secretKey = "123";
+
+                var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+                
+                // add user access handler
                 services.AddTransient<IUserAccessHandler, UserAccessHandler>();
 
                 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -72,7 +80,18 @@ namespace DXConfig.Server
                 {
                     o.ClientId = Configuration["GitHub:ClientId"];
                     o.ClientSecret = Configuration["GitHub:ClientSecret"];
-                });
+                })
+                //.AddJwtBearer("jwt", o =>
+                //{
+                //    o.RequireHttpsMetadata = false;
+                //    o.SaveToken = false;
+                //    o.TokenValidationParameters = new TokenValidationParameters()
+                //    {
+                //        IssuerSigningKey = signingKey
+                //    };
+                //})
+                .AddScheme<SimpleJwtApiAuthenticationOptions, SimpleJwtApiAuthentication>("jwt", o => { })
+                ;
             }
 
             services.AddMvc();

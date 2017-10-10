@@ -6,6 +6,7 @@ using DXConfig.Server.Infra;
 using DXConfig.Server.Managers;
 using DXConfig.Server.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DXConfig.Server.Controllers
 {
@@ -25,8 +26,11 @@ namespace DXConfig.Server.Controllers
 
         // GET api/values
         [HttpGet(Name="Config_Start")]
+        [Authorize(AuthenticationSchemes="jwt")]
         public IEnumerable<string> Start()
         {
+            var user = _userAccess.GetUser();
+
             return new string[] { "myapp001", "myapp002" };
         }
 

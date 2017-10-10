@@ -25,6 +25,12 @@ namespace DXConfig.Server.Infra
             if( _context.User != null && _context.User.Identity.IsAuthenticated )
             {
                 string username = _context.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+                var jwtToken = _context.User.Claims.FirstOrDefault(c => c.Type == "urn:dxconfig:token");
+
+                if( jwtToken != null )
+                {
+                    return _userManager.ImportUser(jwtToken.Value);
+                }
 
                 return _userManager.CreateUser("test", username);
             }
