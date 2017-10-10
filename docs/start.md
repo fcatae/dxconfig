@@ -31,8 +31,11 @@ Download user identity if logged
 
 Add a command line to initialize
 
-    dxconfig login <session_token>@<endpoint_url>
-    (download configuration to dxhome: token.endpoint_url.json)
+    dxconfig login <session_token>@<endpoint_url>    (session token=jwt)
+    (download configuration to dxhome: configserver) (or token.endpoint_url.json?)
+    only one login allowed -- you cannot logout (to avoid uploading to the wrong server)
+
+how to prevent uploading the secrets to the wrong server?
 
 validate the session token
 

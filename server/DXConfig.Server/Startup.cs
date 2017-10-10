@@ -100,7 +100,7 @@ namespace DXConfig.Server
                 routes.MapRoute(
                     name: "applink",
                     template: "applink/{action=Index}",
-                    defaults: new { controller = "WebAppLink" });
+                    defaults: new { controller = "WebAppLink" });                
             });
             
             SeedMockupData(services);

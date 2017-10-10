@@ -19,8 +19,8 @@ if (!exists) {
 }
 console.log(getDxConfigHomeDir());
 var foldername = getDxConfigHomeDir();
-//download(foldername, 'http://bing.com', '')
-download(foldername, endpoint, application);
+download(foldername, 'http://bing.com', '');
+//download(foldername, endpoint, application)
 function getHomeDir() {
     return process.env.LOCALAPPDATA || os.homedir();
 }

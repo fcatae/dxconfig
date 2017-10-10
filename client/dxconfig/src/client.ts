@@ -24,8 +24,8 @@ if(!exists) {
 console.log(getDxConfigHomeDir());
 var foldername = getDxConfigHomeDir();
 
-//download(foldername, 'http://bing.com', '')
-download(foldername, endpoint, application)
+download(foldername, 'http://bing.com', '')
+//download(foldername, endpoint, application)
 
 function getHomeDir() {
     return process.env.LOCALAPPDATA || os.homedir();
@@ -79,5 +79,5 @@ function downloadFile(url, filename) {
       .on('error', function(err) {
         console.log(err)
       })
-    .pipe(fs.createWriteStream(filename))
+      .pipe(fs.createWriteStream(filename))
 }

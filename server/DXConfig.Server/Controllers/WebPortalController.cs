@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication;
 using DXConfig.Server.Infra;
 using System.Security.Claims;
 using DXConfig.Server.Managers;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace DXConfig.Server.Controllers
 {
@@ -127,7 +128,11 @@ namespace DXConfig.Server.Controllers
         {
             var user = _userAccess.GetUser();
 
-            return _userManager.ExportUser(user);
+            string token = _userManager.ExportUser(user);
+
+            string url = Url.Action(nameof(ConfigController.Get), nameof(ConfigController));
+
+            return $"dxconfig login {token}@{url}";
         }
     }
 }
