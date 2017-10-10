@@ -17,12 +17,14 @@ namespace DXConfig.Server.Controllers
         private readonly IUserAccessHandler _userAccess;
         private readonly IConfigServerManager<AppLink> _configServer;
         private readonly IStorageManager _storageManager;
+        private readonly ILocationManager<AppResource> _appResourceLocation;
 
-        public WebAppLinkController(IConfigServerManager<AppLink> configServer, IStorageManager storageManager, IUserAccessHandler userAccess)
+        public WebAppLinkController(IConfigServerManager<AppLink> configServer, ILocationManager<AppResource> appResourceLocation, IStorageManager storageManager, IUserAccessHandler userAccess)
         {
             this._userAccess = userAccess;
             this._configServer = configServer;
             this._storageManager = storageManager;
+            this._appResourceLocation = appResourceLocation;
         }
 
         // GET: Applink
@@ -32,7 +34,7 @@ namespace DXConfig.Server.Controllers
             var appResource = new AppLink(link);
 
             var data = _configServer.Retrieve(user, appResource);
-
+            
             if (data == null)
                 return "NotFound()";
 
@@ -44,8 +46,19 @@ namespace DXConfig.Server.Controllers
         }
 
         // GET: Applink
-        public string Create([FromQuery]string link)
+        public string Create([FromQuery]string link, [FromQuery]string location)
         {
+            var user = _userAccess.GetUser();
+            var appResource = new AppLink(link);
+
+            var appLocation = new AppResource(location, "dev");
+
+            string targetLocation = _appResourceLocation.Resolve(user, appLocation);
+
+            var data = new StringData(targetLocation);
+
+            _configServer.Create(user, appResource, data);
+
             return $"applink:{link}";
         }
 
