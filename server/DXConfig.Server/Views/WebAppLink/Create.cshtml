@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Portal</title>
+</head>
+<body>
+    <h1>Create AppLink</h1>
+    <h3>@User.Identity.Name (@User.Identity.AuthenticationType)</h3>
+    <p>User status: @User.Identity.IsAuthenticated</p>
+
+    <form method="post">
+        <input name="link" placeholder="applink" />
+        <input name="location" placeholder="application resource name" />
+        <button type="submit">Create</button>
+    </form>
+
+</body>
+</html>

@@ -27,6 +27,11 @@ namespace DXConfig.Server.Controllers
             this._appResourceLocation = appResourceLocation;
         }
 
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         // GET: Applink
         public string Show([FromQuery]string link)
         {
@@ -46,7 +51,8 @@ namespace DXConfig.Server.Controllers
         }
 
         // GET: Applink
-        public string Create([FromQuery]string link, [FromQuery]string location)
+        [HttpPost]
+        public string Create([FromForm]string link, [FromForm]string location)
         {
             var user = _userAccess.GetUser();
             var appResource = new AppLink(link);
@@ -60,6 +66,13 @@ namespace DXConfig.Server.Controllers
             _configServer.Create(user, appResource, data);
 
             return $"applink:{link}";
+        }
+
+        // GET: Applink
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
         }
 
     }

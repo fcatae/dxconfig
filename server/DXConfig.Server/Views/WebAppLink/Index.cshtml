@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Portal</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    @{
+        if (User != null )
+        {
+            var picture = User.FindAll("picture").FirstOrDefault();
+            if( picture != null)
+            {
+                <img src="@picture.Value" />
+            }
+
+        }
+    }    
+    <h3>@User.Identity.Name (@User.Identity.AuthenticationType)</h3>
+    <p>User status: @User.Identity.IsAuthenticated</p>
+
+    <form action="/applink/show" method="get">
+        <input name="link" placeholder="applink" />
+        <button type="submit">Show</button>
+    </form>
+
+</body>
+</html>

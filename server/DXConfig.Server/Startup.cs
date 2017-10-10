@@ -99,7 +99,7 @@ namespace DXConfig.Server
 
                 routes.MapRoute(
                     name: "applink",
-                    template: "applink/{action}",
+                    template: "applink/{action=Index}",
                     defaults: new { controller = "WebAppLink" });
             });
             
