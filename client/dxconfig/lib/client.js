@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-console.log('dxconfig v0.1');
 var path = require("path");
 var http = require("http");
 var fs = require("fs");

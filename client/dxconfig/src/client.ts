@@ -1,5 +1,3 @@
-console.log('dxconfig v0.1');
-
 import path = require('path');
 import http = require('http');
 import fs = require('fs');

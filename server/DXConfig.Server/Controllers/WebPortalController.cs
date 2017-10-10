@@ -135,7 +135,7 @@ namespace DXConfig.Server.Controllers
 
             //string url = Url.RouteUrl("portal", new { controller = "WebPortal", action = "index" }, "https", Request.Host.Value);
 
-            string url = Url.RouteUrl("Config_Start", new { }, Request.Protocol, Request.Host.Value);
+            string url = Url.RouteUrl("Config_Start", new { }, Request.Scheme, Request.Host.Value);
 
             return $"dxconfig login {token}@{url}";
         }
