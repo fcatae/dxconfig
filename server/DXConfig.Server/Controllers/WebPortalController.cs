@@ -58,6 +58,21 @@ namespace DXConfig.Server.Controllers
         }
 
         [AllowAnonymous]
+        public async Task<ActionResult> RedirectToGithub()
+        {
+            // If user is not authenticated, then redirect to AuthProvider
+            var authResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            if (!authResult.Succeeded || authResult.Ticket.Principal.Identity.IsAuthenticated == false)
+            {
+                // authenticate in git
+                return Challenge(GithubAuthenticationDefaults.AuthenticationScheme);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [AllowAnonymous]
         public async Task<ActionResult> SimulateExternalAuthentication([FromQuery]string username)
         {
             if(username == null)
@@ -89,11 +104,12 @@ namespace DXConfig.Server.Controllers
         {
             return View();
         }
-
-        // GET: Portal/Details
-        public ActionResult Details(int id)
+        
+        public async Task<ActionResult> Logout()
         {
+            await HttpContext.SignOutAsync();
+
             return View();
-        }        
+        }
     }
 }

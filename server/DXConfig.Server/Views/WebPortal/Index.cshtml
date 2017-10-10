@@ -5,9 +5,22 @@
     <title>Portal</title>
 </head>
 <body>
+    <h1>Dashboard</h1>
+    @{
+        if (User != null )
+        {
+            var picture = User.FindAll("picture").FirstOrDefault();
+            if( picture != null)
+            {
+                <img src="@picture.Value" />
+            }
+
+        }
+    }    
+    <h3>@User.Identity.Name (@User.Identity.AuthenticationType)</h3>
     <p>User status: @User.Identity.IsAuthenticated</p>
-    <p>@User.Identity.AuthenticationType</p>
-    <p>@User.Identity.Name</p>
-    Dashboard
+    <form action="/portal/logout">
+        <button>Logout</button>
+    </form>    
 </body>
 </html>
