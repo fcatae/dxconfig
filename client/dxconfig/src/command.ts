@@ -1,34 +1,48 @@
-var argv = require('yargs')
-    .command('login [token]', 'Log on configuration server', {}, (argv) => {
-        console.log(argv._[0] + ': Not implemented yet')
-    })
+import { ICommandHub } from './interfaces';
+import { HubNotImplemented } from './commandhub';
 
-    .command('init', 'Create a DX configuration file', {}, (argv) => {
-        console.log(argv._[0] + ': Not implemented yet')
-    })
+class YargsCommand {
 
-    .command('add <file>', 'Add secret file', {}, (argv) => {
-        console.log(argv._[0] + ': Not implemented yet')
-    })
+    dispatch(hub: ICommandHub) {
 
-    .command('push', 'Update remote configuration server', {}, (argv) => {
-        console.log(argv._[0] + ': Not implemented yet')
-    })
+        require('yargs')
 
-    .command('pull', 'Fetch configuration from remote server', {}, (argv) => {
-        console.log(argv._[0] + ': Not implemented yet')
-    })
+        // dxconfig login
+        .command('login [token]', 'Log on configuration server', {}, (argv) => {
+            if( argv.token == null ) {
+                hub.login();
+            } else {
+                hub.loginToken(argv.token);
+            }        
+        })
 
-    .command({
-        command: 'exemple <key> [value]',
-        aliases: ['e'],
-        desc: 'Example command',
-        builder: (yargs) => yargs.default('value', 'true'),
-        handler: (argv) => {
-            console.log(argv._[0] + ': Not implemented yet')            
-            console.log(`Example setting ${argv.key} to ${argv.value}`)
-        }
-    })
-    .demandCommand()
-    .help()
-    .argv;
+        // dxconfig init
+        .command('init', 'Create a DX configuration file', {}, (argv) => {
+            hub.configInit();
+        })
+
+        // dxconfig add secret.json
+        .command('add <file>', 'Add secret file', {}, (argv) => {
+            hub.configAddSecret(argv.file);
+        })
+
+        // dxconfig push
+        .command('push', 'Update remote configuration server', {}, (argv) => {
+            hub.serverPush();
+        })
+
+        // dxconfig pull
+        .command('pull', 'Fetch configuration from remote server', {}, (argv) => {
+            hub.serverPull();
+        })
+
+        .demandCommand()
+        .help('help').alias('help', '?')
+        // add examples:
+        // .example('dxconfig init', 'Init a simple configuration')
+        .argv;
+    }
+
+}
+
+export var Command = new YargsCommand();
