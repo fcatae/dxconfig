@@ -7,6 +7,8 @@ import path = require('path');
 const GLOBALCONFIGSERVER = 'configserver.json';
 const DXCONFIG_WINDOWS = 'DXConfig';
 const DXCONFIG_LINUX = '.dxconfig';
+const LOCALCONFIG = 'dxconfig.json';
+
 
 export function readJson(filename) {
     var data = fs.readFileSync(filename, 'utf8');
@@ -14,7 +16,7 @@ export function readJson(filename) {
 }
 
 export function writeJson(filename, json) {
-    var data = JSON.stringify(json);
+    var data = JSON.stringify(json, null, ' ');
     fs.writeFileSync(filename, data);
 }
 
@@ -37,7 +39,10 @@ export function getGlobalConfigPath() {
         return path.join(os.homedir(), DXCONFIG_LINUX, GLOBALCONFIGSERVER);        
     }    
 }
-
+export function getLocalConfigPath() {
+    // load dxconfig.json in the current folder
+    return LOCALCONFIG;
+}
 
 export function getDxConfigHomeDir() {
     // if Windows

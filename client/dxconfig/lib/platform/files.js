@@ -8,13 +8,14 @@ var path = require("path");
 var GLOBALCONFIGSERVER = 'configserver.json';
 var DXCONFIG_WINDOWS = 'DXConfig';
 var DXCONFIG_LINUX = '.dxconfig';
+var LOCALCONFIG = 'dxconfig.json';
 function readJson(filename) {
     var data = fs.readFileSync(filename, 'utf8');
     return JSON.parse(data);
 }
 exports.readJson = readJson;
 function writeJson(filename, json) {
-    var data = JSON.stringify(json);
+    var data = JSON.stringify(json, null, ' ');
     fs.writeFileSync(filename, data);
 }
 exports.writeJson = writeJson;
@@ -39,6 +40,11 @@ function getGlobalConfigPath() {
     }
 }
 exports.getGlobalConfigPath = getGlobalConfigPath;
+function getLocalConfigPath() {
+    // load dxconfig.json in the current folder
+    return LOCALCONFIG;
+}
+exports.getLocalConfigPath = getLocalConfigPath;
 function getDxConfigHomeDir() {
     // if Windows
     if (process.env.LOCALAPPDATA) {

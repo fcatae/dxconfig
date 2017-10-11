@@ -5,7 +5,7 @@ var YargsCommand = /** @class */ (function () {
     }
     YargsCommand.prototype.dispatch = function (hub) {
         require('yargs')
-            .command('login [token]', 'Log on configuration server', {}, function (argv) {
+            .command('login <token>', 'Log on configuration server', {}, function (argv) {
             if (argv.token == null) {
                 hub.login();
             }

@@ -4,8 +4,11 @@ import { GetSession } from './session';
 import { HubNotImplemented } from './commandhub';
 
 import { Config as GlobalConfig } from './globalconfig';
+import { Config as LocalConfig } from './localconfig';
+import { GetConfig } from './config';
 
 var Session = GetSession(GlobalConfig);
+var Config = GetConfig(LocalConfig);
 
 console.log('dxconfig v0.1');
 
@@ -20,9 +23,10 @@ console.log('dxconfig v0.1');
 var hub = HubNotImplemented;
 
 hub.loginToken = (token) => Session.loginToken(token);
+hub.configInit = () => Config.init();
+hub.configAddSecret = (path) => Config.addSecret(path);
 
 // ICommandHub
-    // login();
     // loginToken: Session.loginToken
     // configInit();
     // configAddSecret(path: string)

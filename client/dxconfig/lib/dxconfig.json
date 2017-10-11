@@ -1,3 +1,4 @@
 {
- "app": "<enter_app_name>"
+ "app": "ardaapp",
+ "secret": "123.secrets"
 }

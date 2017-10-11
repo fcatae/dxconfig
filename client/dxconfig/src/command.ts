@@ -8,7 +8,7 @@ class YargsCommand {
         require('yargs')
 
         // dxconfig login
-        .command('login [token]', 'Log on configuration server', {}, (argv) => {
+        .command('login <token>', 'Log on configuration server', {}, (argv) => {
             if( argv.token == null ) {
                 hub.login();
             } else {

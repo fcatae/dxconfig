@@ -7,66 +7,40 @@ import url = require('url');
 
 import globalrequire = require('./global');
 
+import { ILocalConfig } from './interfaces';
+
 var CONFIGFILE = 'dxconfig.json';
 
 var configserver = globalrequire.globalconf.data;
 
-// configInit();
-secretsAdd('arda', 'file.json.secrets');
+const CONFIGAPPCONST = "<enter app name>";
+const CONFIGSECCONST = "<enter secret file path>";
 
-function configInit() {
-    var config = {
-        app: '<enter_app_name>'
-    };
-    write(config);
-}
+class Config {
 
-function secretsAdd(appname, filename) {
-    
-    if(fs.existsSync(filename)) {
-        console.log(filename);
+    private config : ILocalConfig
 
-        uploadSecrets(appname, filename);
+    constructor(config: ILocalConfig) {
+        this.config = config;
     }
-    
-}
 
-function uploadSecrets(appname, filename) {
-
-    var data = fs.readFileSync(filename, 'utf8');
-
-    console.log('filename: ' + filename);
-
-    if( data == null || data.length == 0 ) {
-        console.log('no data');
-        return;
+    init() {
+        // ignore if this was already initialized
+        if(this.config.exist())
+            return;
+        
+        this.config.app = CONFIGAPPCONST;
+        this.config.secret = null;
+        this.config.save();
     }
-    console.log('data: ' + data.length);
 
-    var endpoint = configserver.endpoint;
-    var authOptions : request.CoreOptions = {
-        auth: { bearer: configserver.token },
-        json: data
-    };
-
-    // warning - almost string concatenation
-    var urlConfigCreate = url.resolve(endpoint, '/api/config/' + appname);
-    console.log( urlConfigCreate)
-    
-    request
-    .post(urlConfigCreate, authOptions)
-    .on('error', function(err) {
-      console.log(err)
-    })
-    .on('complete', r => { console.log('uploadSecrets');});
+    addSecret(path: string) {
+        this.config.load();
+        this.config.secret = path;
+        this.config.save();
+    }    
 }
 
-function write(config) {
-    var data = JSON.stringify(config, null, ' ');
-    fs.writeFileSync(CONFIGFILE, data);
-}
-
-function read() {
-    var data = fs.readFileSync(CONFIGFILE, 'utf8');
-    return JSON.parse(data);
-}
+export function GetConfig(config) {
+    return new Config(config);
+} 

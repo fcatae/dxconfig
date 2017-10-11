@@ -1,23 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var files = require("./platform/files");
-function initSession(initParam) {
-    var comps = initParam.split('@');
-    var jwtToken = comps[0];
-    var endpoint = comps[1];
-    console.log('initSession');
-    // console.log(endpoint);
-    // console.log(jwtToken);
-    var filename = files.getDxUserConfiguration();
-    files.saveConfig(filename, endpoint, jwtToken);
-    var config = files.loadConfig(filename);
-    // //testSession(endpoint, jwtToken);
-    // var jwtToken = config.token;
-    // var endpoint = config.endpoint;
-    // console.log(endpoint);
-    // console.log(jwtToken);    
-    // testSession(endpoint, jwtToken);
-}
 var GlobalConfig = /** @class */ (function () {
     function GlobalConfig() {
         this.endpoint = null;

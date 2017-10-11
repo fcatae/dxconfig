@@ -15,3 +15,11 @@ export interface IGlobalConfig {
     save();
     delete();
 }
+
+export interface ILocalConfig {
+    app: string;
+    secret?: string | null;
+    load();
+    exist() : boolean;
+    save();
+}

@@ -1,29 +1,5 @@
 import * as files from './platform/files';
 
-function initSession(initParam: string) {
-    var comps = initParam.split('@');
-    var jwtToken = comps[0];
-    var endpoint = comps[1];
-    
-    console.log('initSession');
-    // console.log(endpoint);
-    // console.log(jwtToken);
-
-    var filename = files.getDxUserConfiguration();
-    files.saveConfig(filename, endpoint, jwtToken);
-
-    var config = files.loadConfig(filename);
-    // //testSession(endpoint, jwtToken);
-
-    // var jwtToken = config.token;
-    // var endpoint = config.endpoint;
-
-    // console.log(endpoint);
-    // console.log(jwtToken);    
-
-    // testSession(endpoint, jwtToken);
-}
-
 class GlobalConfig {
     endpoint: string | null = null;
     jwtToken: string | null = null;
