@@ -25,6 +25,9 @@ var YargsCommand = /** @class */ (function () {
             .command('pull', 'Fetch configuration from remote server', {}, function (argv) {
             hub.serverPull();
         })
+            .command('logout', 'Log out from the server', {}, function (argv) {
+            hub.logout();
+        })
             .demandCommand()
             .help('help').alias('help', '?')
             .argv;

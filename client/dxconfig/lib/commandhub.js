@@ -7,6 +7,9 @@ exports.HubNotImplemented = {
     loginToken: function (token) {
         console.log('loginToken not implemented');
     },
+    logout: function () {
+        console.log('logout not implemented');
+    },
     configInit: function () {
         console.log('configInit not implemented');
     },

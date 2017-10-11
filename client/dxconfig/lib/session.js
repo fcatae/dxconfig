@@ -22,6 +22,11 @@ var SessionImpl = /** @class */ (function () {
         this.config.jwtToken = jwtToken;
         this.config.save();
     };
+    SessionImpl.prototype.logout = function () {
+        if (this.config.exist()) {
+            this.config.delete();
+        }
+    };
     return SessionImpl;
 }());
 function GetSession(config) {

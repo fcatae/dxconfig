@@ -1,6 +1,17 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var request = require("request");
+function httpGet(endpoint, jwtToken) {
+    var authOptions = {
+        auth: { bearer: jwtToken }
+    };
+    request
+        .get(endpoint, authOptions)
+        .on('error', function (err) {
+        console.log(err);
+    })
+        .on('complete', function (r) { console.log('initSession:complete'); });
+}
 function old() {
     function testSession(endpoint, jwtToken) {
         console.log('endpoint: ' + endpoint);

@@ -12,19 +12,12 @@ var Config = GetConfig(LocalConfig);
 
 console.log('dxconfig v0.1');
 
-//var client = require('./client');
-
-//var client = require('./config');
-//var client = require('./session');
-
-
-//Command.dispatch(HubNotImplemented);
-
 var hub = HubNotImplemented;
 
 hub.loginToken = (token) => Session.loginToken(token);
 hub.configInit = () => Config.init();
 hub.configAddSecret = (path) => Config.addSecret(path);
+hub.logout = () => Session.logout();
 
 // ICommandHub
     // loginToken: Session.loginToken

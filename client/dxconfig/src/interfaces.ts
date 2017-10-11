@@ -1,6 +1,7 @@
 export interface ICommandHub {
     login();
     loginToken(token: string);
+    logout();
     configInit();
     configAddSecret(path: string)
     serverPush();

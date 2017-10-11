@@ -7,6 +7,9 @@ export var HubNotImplemented : ICommandHub = {
     loginToken: (token: string) => {
         console.log('loginToken not implemented');
     },
+    logout: () => {
+        console.log('logout not implemented');
+    },
     configInit: () => {
         console.log('configInit not implemented');
     },

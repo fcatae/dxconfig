@@ -31,6 +31,12 @@ class SessionImpl {
         this.config.jwtToken = jwtToken;
         this.config.save();
     }
+
+    logout() {
+        if(this.config.exist()) {
+            this.config.delete();
+        }        
+    }
 }
 
 export function GetSession(config) {

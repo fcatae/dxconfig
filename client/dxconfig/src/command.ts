@@ -36,6 +36,11 @@ class YargsCommand {
             hub.serverPull();
         })
 
+        // logout
+        .command('logout', 'Log out from the server', {}, (argv) => {
+            hub.logout();
+        })
+
         .demandCommand()
         .help('help').alias('help', '?')
         // add examples:
