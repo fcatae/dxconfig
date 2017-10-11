@@ -5,13 +5,14 @@ function httpGet(endpoint, jwtToken) {
     var authOptions = {
         auth: { bearer: jwtToken }
     };
-    request
-        .get(endpoint, authOptions)
+    request.get(endpoint, authOptions)
         .on('error', function (err) {
+        console.log('httpGet:error');
         console.log(err);
     })
-        .on('complete', function (r) { console.log('initSession:complete'); });
+        .on('complete', function (r) { console.log('httpGet:complete'); });
 }
+exports.httpGet = httpGet;
 function old() {
     function testSession(endpoint, jwtToken) {
         console.log('endpoint: ' + endpoint);

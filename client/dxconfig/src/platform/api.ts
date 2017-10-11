@@ -5,20 +5,19 @@ import os = require('os');
 import request = require('request');
 import url = require('url');
 
-
-function httpGet(endpoint: string, jwtToken: string) {
+export function httpGet(endpoint: string, jwtToken: string) {
 
     var authOptions : request.CoreOptions = {
         auth: { bearer: jwtToken }
     };
 
-    request
-    .get(endpoint, authOptions)
-    .on('error', function(err) {
-      console.log(err)
-    })
-    .on('complete', r => { console.log('initSession:complete');})
-    ;
+    request.get(endpoint, authOptions)
+        .on('error', function(err) {
+            console.log('httpGet:error')
+            console.log(err)
+        })
+        .on('complete', r => { console.log('httpGet:complete');})
+        ;
 
 }
 

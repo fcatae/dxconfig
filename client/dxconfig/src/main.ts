@@ -26,4 +26,12 @@ hub.logout = () => Session.logout();
     // serverPush();
     // serverPull();
 
-Command.dispatch(hub);
+// Command.dispatch(hub);
+
+GlobalConfig.load();
+
+import { httpGet } from './platform/api'
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+httpGet(GlobalConfig.endpoint, GlobalConfig.jwtToken);
+console.log('http')

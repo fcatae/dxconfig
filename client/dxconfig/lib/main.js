@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var command_1 = require("./command");
 var session_1 = require("./session");
 var commandhub_1 = require("./commandhub");
 var globalconfig_1 = require("./globalconfig");
@@ -20,4 +19,9 @@ hub.logout = function () { return Session.logout(); };
 // configAddSecret(path: string)
 // serverPush();
 // serverPull();
-command_1.Command.dispatch(hub);
+// Command.dispatch(hub);
+globalconfig_1.Config.load();
+var api_1 = require("./platform/api");
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+api_1.httpGet(globalconfig_1.Config.endpoint, globalconfig_1.Config.jwtToken);
+console.log('http');
