@@ -30,7 +30,7 @@ namespace Test.Server
                 .UseStartup<DXConfig.Server.Startup>();
         }
         
-        [Fact]
+        [Fact(Skip ="Needs implementing authentication")]
         public Task ConfigGetAll() => ValidateUrlAsync("/api/config");
 
         [Fact]
