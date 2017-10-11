@@ -9,23 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request-promise");
-function httpGetAsync(endpoint, jwtToken, parameters) {
-    return __awaiter(this, void 0, void 0, function* () {
-        var options = {
-            auth: { bearer: jwtToken },
-            qs: parameters
-        };
-        yield request.get(endpoint, options);
-    });
+function getAsync(endpoint, jwtToken, parameters) {
+    var options = {
+        auth: { bearer: jwtToken },
+        qs: parameters
+    };
+    return request.get(endpoint, options);
 }
-exports.httpGetAsync = httpGetAsync;
-function httpPostAsync(endpoint, jwtToken, parameters) {
+exports.getAsync = getAsync;
+function postAsync(endpoint, jwtToken, parameters) {
     return __awaiter(this, void 0, void 0, function* () {
         var options = {
             auth: { bearer: jwtToken },
             json: parameters
         };
-        yield request.post(endpoint, options);
+        return request.post(endpoint, options);
     });
 }
-exports.httpPostAsync = httpPostAsync;
+exports.postAsync = postAsync;

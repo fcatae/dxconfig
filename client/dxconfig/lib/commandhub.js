@@ -1,25 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HubNotImplemented = {
-    login: function () {
+    login: () => {
         console.log('login not implemented');
     },
-    loginToken: function (token) {
+    loginToken: (token) => {
         console.log('loginToken not implemented');
     },
-    logout: function () {
+    logout: () => {
         console.log('logout not implemented');
     },
-    configInit: function () {
+    configInit: () => {
         console.log('configInit not implemented');
     },
-    configAddSecret: function (path) {
+    configAddSecret: (path) => {
         console.log('configAddSecret not implemented');
     },
-    serverPush: function () {
+    serverPush: () => {
         console.log('serverPush not implemented');
     },
-    serverPull: function () {
+    serverPull: () => {
         console.log('serverPull not implemented');
     }
 };

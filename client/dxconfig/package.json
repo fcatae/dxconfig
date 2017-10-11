@@ -26,9 +26,11 @@
   "devDependencies": {
     "@types/node": "^8.0.32",
     "@types/request": "^2.0.4",
+    "@types/request-promise": "^4.1.38",
     "typescript": "^2.5.3"
   },
   "dependencies": {
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   }
 }

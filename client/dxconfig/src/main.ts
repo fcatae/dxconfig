@@ -30,8 +30,15 @@ hub.logout = () => Session.logout();
 
 GlobalConfig.load();
 
-import { httpGet } from './platform/api'
+import * as server from './platform/server'
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-httpGet(GlobalConfig.endpoint, GlobalConfig.jwtToken);
-console.log('http')
+(async function run() {
+
+    //await server.apiConfigStatusAsync(GlobalConfig)
+
+    //var result = await server.apiConfigRetrieveAsync(GlobalConfig, 'myapp001');
+    //console.log(result);
+
+    await server.apiConfigCreateAsync(GlobalConfig, 'myapp001', '--aaaa--');
+
+})();

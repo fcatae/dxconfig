@@ -1,18 +1,26 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var session_1 = require("./session");
-var commandhub_1 = require("./commandhub");
-var globalconfig_1 = require("./globalconfig");
-var localconfig_1 = require("./localconfig");
-var config_1 = require("./config");
+const session_1 = require("./session");
+const commandhub_1 = require("./commandhub");
+const globalconfig_1 = require("./globalconfig");
+const localconfig_1 = require("./localconfig");
+const config_1 = require("./config");
 var Session = session_1.GetSession(globalconfig_1.Config);
 var Config = config_1.GetConfig(localconfig_1.Config);
 console.log('dxconfig v0.1');
 var hub = commandhub_1.HubNotImplemented;
-hub.loginToken = function (token) { return Session.loginToken(token); };
-hub.configInit = function () { return Config.init(); };
-hub.configAddSecret = function (path) { return Config.addSecret(path); };
-hub.logout = function () { return Session.logout(); };
+hub.loginToken = (token) => Session.loginToken(token);
+hub.configInit = () => Config.init();
+hub.configAddSecret = (path) => Config.addSecret(path);
+hub.logout = () => Session.logout();
 // ICommandHub
 // loginToken: Session.loginToken
 // configInit();
@@ -21,7 +29,12 @@ hub.logout = function () { return Session.logout(); };
 // serverPull();
 // Command.dispatch(hub);
 globalconfig_1.Config.load();
-var api_1 = require("./platform/api");
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-api_1.httpGet(globalconfig_1.Config.endpoint, globalconfig_1.Config.jwtToken);
-console.log('http');
+const server = require("./platform/server");
+(function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        //await server.apiConfigStatusAsync(GlobalConfig)
+        //var result = await server.apiConfigRetrieveAsync(GlobalConfig, 'myapp001');
+        //console.log(result);
+        yield server.apiConfigCreateAsync(globalconfig_1.Config, 'myapp001', '--aaaa--');
+    });
+})();

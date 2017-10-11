@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var fs = require("fs");
-var os = require("os");
-var path = require("path");
-var GLOBALCONFIGSERVER = 'configserver.json';
-var DXCONFIG_WINDOWS = 'DXConfig';
-var DXCONFIG_LINUX = '.dxconfig';
-var LOCALCONFIG = 'dxconfig.json';
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
+const GLOBALCONFIGSERVER = 'configserver.json';
+const DXCONFIG_WINDOWS = 'DXConfig';
+const DXCONFIG_LINUX = '.dxconfig';
+const LOCALCONFIG = 'dxconfig.json';
 function readJson(filename) {
     var data = fs.readFileSync(filename, 'utf8');
     return JSON.parse(data);

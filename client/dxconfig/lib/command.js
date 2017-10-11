@@ -1,11 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var YargsCommand = /** @class */ (function () {
-    function YargsCommand() {
-    }
-    YargsCommand.prototype.dispatch = function (hub) {
+class YargsCommand {
+    dispatch(hub) {
         require('yargs')
-            .command('login <token>', 'Log on configuration server', {}, function (argv) {
+            .command('login <token>', 'Log on configuration server', {}, (argv) => {
             if (argv.token == null) {
                 hub.login();
             }
@@ -13,25 +11,24 @@ var YargsCommand = /** @class */ (function () {
                 hub.loginToken(argv.token);
             }
         })
-            .command('init', 'Create a DX configuration file', {}, function (argv) {
+            .command('init', 'Create a DX configuration file', {}, (argv) => {
             hub.configInit();
         })
-            .command('add <file>', 'Add secret file', {}, function (argv) {
+            .command('add <file>', 'Add secret file', {}, (argv) => {
             hub.configAddSecret(argv.file);
         })
-            .command('push', 'Update remote configuration server', {}, function (argv) {
+            .command('push', 'Update remote configuration server', {}, (argv) => {
             hub.serverPush();
         })
-            .command('pull', 'Fetch configuration from remote server', {}, function (argv) {
+            .command('pull', 'Fetch configuration from remote server', {}, (argv) => {
             hub.serverPull();
         })
-            .command('logout', 'Log out from the server', {}, function (argv) {
+            .command('logout', 'Log out from the server', {}, (argv) => {
             hub.logout();
         })
             .demandCommand()
             .help('help').alias('help', '?')
             .argv;
-    };
-    return YargsCommand;
-}());
+    }
+}
 exports.Command = new YargsCommand();

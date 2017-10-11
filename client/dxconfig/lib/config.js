@@ -1,26 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var CONFIGAPPCONST = "<enter app name>";
-var CONFIGSECCONST = "<enter secret file path>";
-var Config = /** @class */ (function () {
-    function Config(config) {
+const CONFIGAPPCONST = "<enter app name>";
+const CONFIGSECCONST = "<enter secret file path>";
+class Config {
+    constructor(config) {
         this.config = config;
     }
-    Config.prototype.init = function () {
+    init() {
         // ignore if this was already initialized
         if (this.config.exist())
             return;
         this.config.app = CONFIGAPPCONST;
         this.config.secret = null;
         this.config.save();
-    };
-    Config.prototype.addSecret = function (path) {
+    }
+    addSecret(path) {
         this.config.load();
         this.config.secret = path;
         this.config.save();
-    };
-    return Config;
-}());
+    }
+}
 function GetConfig(config) {
     return new Config(config);
 }

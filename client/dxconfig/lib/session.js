@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var SessionImpl = /** @class */ (function () {
-    function SessionImpl(config) {
+class SessionImpl {
+    constructor(config) {
         this.config = config;
     }
-    SessionImpl.prototype.login = function () {
+    login() {
         console.log('login not implemented');
-    };
-    SessionImpl.prototype.loginToken = function (serverCode) {
+    }
+    loginToken(serverCode) {
         // serverCode = <jwtToken>@<endpoint>      
         var components = serverCode.split('@');
         if (components.length != 2)
@@ -21,14 +21,13 @@ var SessionImpl = /** @class */ (function () {
         this.config.endpoint = endpoint;
         this.config.jwtToken = jwtToken;
         this.config.save();
-    };
-    SessionImpl.prototype.logout = function () {
+    }
+    logout() {
         if (this.config.exist()) {
             this.config.delete();
         }
-    };
-    return SessionImpl;
-}());
+    }
+}
 function GetSession(config) {
     return new SessionImpl(config);
 }
