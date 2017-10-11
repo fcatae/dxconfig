@@ -1,8 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var globalrequire = require("./global");
-var CONFIGFILE = 'dxconfig.json';
-var configserver = globalrequire.globalconf.data;
 var CONFIGAPPCONST = "<enter app name>";
 var CONFIGSECCONST = "<enter secret file path>";
 var Config = /** @class */ (function () {

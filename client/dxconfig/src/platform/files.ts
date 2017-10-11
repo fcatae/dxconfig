@@ -1,8 +1,6 @@
 import fs = require('fs');
 import os = require('os');
 import path = require('path');
-//import request = require('request');
-//import http = require('http');
 
 const GLOBALCONFIGSERVER = 'configserver.json';
 const DXCONFIG_WINDOWS = 'DXConfig';

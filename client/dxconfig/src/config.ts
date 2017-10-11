@@ -1,17 +1,4 @@
-import path = require('path');
-import http = require('http');
-import fs = require('fs');
-import os = require('os');
-import request = require('request');
-import url = require('url');
-
-import globalrequire = require('./global');
-
 import { ILocalConfig } from './interfaces';
-
-var CONFIGFILE = 'dxconfig.json';
-
-var configserver = globalrequire.globalconf.data;
 
 const CONFIGAPPCONST = "<enter app name>";
 const CONFIGSECCONST = "<enter secret file path>";

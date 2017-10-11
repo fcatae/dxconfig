@@ -3,8 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var fs = require("fs");
 var os = require("os");
 var path = require("path");
-//import request = require('request');
-//import http = require('http');
 var GLOBALCONFIGSERVER = 'configserver.json';
 var DXCONFIG_WINDOWS = 'DXConfig';
 var DXCONFIG_LINUX = '.dxconfig';

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var request = require("request");
 var SessionImpl = /** @class */ (function () {
     function SessionImpl(config) {
         this.config = config;
@@ -29,18 +28,3 @@ function GetSession(config) {
     return new SessionImpl(config);
 }
 exports.GetSession = GetSession;
-function old() {
-    function testSession(endpoint, jwtToken) {
-        console.log('endpoint: ' + endpoint);
-        var authOptions = {
-            auth: { bearer: jwtToken }
-        };
-        console.dir(authOptions);
-        request
-            .get(endpoint, authOptions)
-            .on('error', function (err) {
-            console.log(err);
-        })
-            .on('complete', function (r) { console.log('initSession:complete'); });
-    }
-}
