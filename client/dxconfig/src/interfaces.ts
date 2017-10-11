@@ -6,3 +6,12 @@ export interface ICommandHub {
     serverPush();
     serverPull();
 }
+
+export interface IGlobalConfig {
+    endpoint: string | null;
+    jwtToken: string | null;
+    load();
+    exist() : boolean;
+    save();
+    delete();
+}
