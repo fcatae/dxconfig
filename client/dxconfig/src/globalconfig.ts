@@ -37,12 +37,10 @@ class GlobalConfig {
 
         this.endpoint = json.endpoint;
         this.jwtToken = json.jwtToken;
-
-        console.log('global configuration file loaded')
     }
     exist() : boolean {
         var filename = files.getGlobalConfigPath();
-        return false;
+        return files.existFile(filename);
     }
     save() {
         if( this.endpoint == null || this.jwtToken == null)
@@ -50,9 +48,11 @@ class GlobalConfig {
 
         var filename = files.getGlobalConfigPath();
         files.writeJson(filename, this);
-        console.log('global configuration file saved')
     }
-    delete() {    
+    delete() {
+        var filename = files.getGlobalConfigPath();
+        files.deleteFile(filename);
+
         this.endpoint = null;
         this.jwtToken = null;
     }

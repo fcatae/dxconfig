@@ -30,20 +30,20 @@ var GlobalConfig = /** @class */ (function () {
             throw "json file format is incorrect";
         this.endpoint = json.endpoint;
         this.jwtToken = json.jwtToken;
-        console.log('global configuration file loaded');
     };
     GlobalConfig.prototype.exist = function () {
         var filename = files.getGlobalConfigPath();
-        return false;
+        return files.existFile(filename);
     };
     GlobalConfig.prototype.save = function () {
         if (this.endpoint == null || this.jwtToken == null)
             throw "globalConfig object has null values";
         var filename = files.getGlobalConfigPath();
         files.writeJson(filename, this);
-        console.log('global configuration file saved');
     };
     GlobalConfig.prototype.delete = function () {
+        var filename = files.getGlobalConfigPath();
+        files.deleteFile(filename);
         this.endpoint = null;
         this.jwtToken = null;
     };

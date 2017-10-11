@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var command_1 = require("./command");
 var session_1 = require("./session");
 var commandhub_1 = require("./commandhub");
 var globalconfig_1 = require("./globalconfig");
@@ -18,6 +19,4 @@ hub.loginToken = function (token) { return Session.loginToken(token); };
 // configAddSecret(path: string)
 // serverPush();
 // serverPull();
-// Command.dispatch(hub);
-globalconfig_1.Config.load();
-console.dir(globalconfig_1.Config);
+command_1.Command.dispatch(hub);

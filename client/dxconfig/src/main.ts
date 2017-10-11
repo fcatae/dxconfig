@@ -29,7 +29,4 @@ hub.loginToken = (token) => Session.loginToken(token);
     // serverPush();
     // serverPull();
 
-// Command.dispatch(hub);
-
-GlobalConfig.load();
-console.dir(GlobalConfig);
+Command.dispatch(hub);

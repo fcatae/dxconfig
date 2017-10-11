@@ -18,6 +18,14 @@ function writeJson(filename, json) {
     fs.writeFileSync(filename, data);
 }
 exports.writeJson = writeJson;
+function existFile(filename) {
+    return fs.existsSync(filename);
+}
+exports.existFile = existFile;
+function deleteFile(filename) {
+    fs.unlinkSync(filename);
+}
+exports.deleteFile = deleteFile;
 function getGlobalConfigPath() {
     if (process.env.LOCALAPPDATA) {
         // Windows
