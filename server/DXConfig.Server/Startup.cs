@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace DXConfig.Server
 {
@@ -93,6 +94,9 @@ namespace DXConfig.Server
                 .AddScheme<SimpleJwtApiAuthenticationOptions, SimpleJwtApiAuthentication>("jwt", o => { })
                 ;
             }
+
+            // ref: https://github.com/aspnet/Hosting/issues/793
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddMvc();
         }
