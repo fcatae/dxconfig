@@ -18,6 +18,14 @@
         }
     }    
     <h3>@User.Identity.Name (@User.Identity.AuthenticationType)</h3>
+
+    <p><code>@ViewBag.CommandLine</code></p>
+
+    <style>
+        code {
+            background-color: lightgray;
+        }
+    </style>
     <p>User status: @User.Identity.IsAuthenticated</p>
     <form action="/portal/logout">
         <button>Logout</button>

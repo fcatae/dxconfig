@@ -31,6 +31,8 @@ namespace DXConfig.Server.Controllers
         {
             var authResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             
+            ViewBag.CommandLine = GetClient();
+
             // show button to start authentication
             return View();
         }
@@ -95,6 +97,7 @@ namespace DXConfig.Server.Controllers
             // create a principal
             var principal = new ClaimsPrincipal(
                                 new ClaimsIdentity(new Claim[] {
+                                        new Claim(ClaimTypes.NameIdentifier, username),
                                         new Claim(ClaimTypes.Name, username),
                                         new Claim(ClaimTypes.Role, "tester")
                                     }, "authtest"));
@@ -125,6 +128,11 @@ namespace DXConfig.Server.Controllers
 
         [Authorize]
         public string ClientIdentity()
+        {
+            return GetClient();
+        }
+
+        string GetClient()
         {
             var user = _userAccess.GetUser();
 
