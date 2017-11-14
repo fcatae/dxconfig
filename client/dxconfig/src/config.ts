@@ -52,10 +52,13 @@ class Config {
         this.globalConfig.load();
         this.config.load();
         var appname = this.config.app;
+        var filename = this.config.secret;
 
         server.apiConfigRetrieveAsync(this.globalConfig, appname).then( (data)=>{
             console.log('appname: ' + appname);
-            console.log(data);
+            console.log('filename: ' + filename);
+
+            files.writeFile(filename, data);
         }); 
     }
 }
