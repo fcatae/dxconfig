@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const server = require("./platform/server");
+const files = require("./platform/files");
 const CONFIGAPPCONST = "<enter app name>";
 const CONFIGSECCONST = "<enter secret file path>";
 class Config {
@@ -28,8 +29,10 @@ class Config {
         this.globalConfig.load();
         this.config.load();
         var appname = this.config.app;
-        console.log('appname: ' + appname);
-        return server.apiConfigCreateAsync(this.globalConfig, appname, '--aaaa--');
+        var filename = this.config.secret;
+        console.log('filename: ' + filename);
+        var data = files.readFile(filename);
+        return server.apiConfigCreateAsync(this.globalConfig, appname, data);
     }
     serverPull() {
         this.globalConfig.load();

@@ -1,4 +1,5 @@
 import * as server from './platform/server';
+import * as files from './platform/files';
 import { ILocalConfig, IGlobalConfig } from './interfaces';
 
 const CONFIGAPPCONST = "<enter app name>";
@@ -39,9 +40,12 @@ class Config {
         this.config.load();
 
         var appname = this.config.app;
-        console.log('appname: ' + appname);
+        var filename = this.config.secret;
+        console.log('filename: ' + filename);
 
-        return server.apiConfigCreateAsync(this.globalConfig, appname, '--aaaa--');        
+        var data = files.readFile(filename);
+
+        return server.apiConfigCreateAsync(this.globalConfig, appname, data);        
     }
 
     serverPull() {
