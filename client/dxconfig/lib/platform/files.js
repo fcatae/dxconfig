@@ -17,6 +17,15 @@ function writeJson(filename, json) {
     fs.writeFileSync(filename, data);
 }
 exports.writeJson = writeJson;
+function readFile(filename) {
+    var data = fs.readFileSync(filename, 'utf8');
+    return data;
+}
+exports.readFile = readFile;
+function writeFile(filename, data) {
+    fs.writeFileSync(filename, data);
+}
+exports.writeFile = writeFile;
 function existFile(filename) {
     return fs.existsSync(filename);
 }
