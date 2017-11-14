@@ -19,6 +19,8 @@ hub.configInit = () => Config.init();
 hub.configAddSecret = (path) => Config.addSecret(path);
 hub.logout = () => Session.logout();
 
+Command.dispatch(hub);
+
 // ICommandHub
     // loginToken: Session.loginToken
     // configInit();
@@ -26,9 +28,9 @@ hub.logout = () => Session.logout();
     // serverPush();
     // serverPull();
 
-// Command.dispatch(hub);
 
-GlobalConfig.load();
+
+// GlobalConfig.load();
 
 import * as server from './platform/server'
 
@@ -39,6 +41,6 @@ import * as server from './platform/server'
     //var result = await server.apiConfigRetrieveAsync(GlobalConfig, 'myapp001');
     //console.log(result);
 
-    await server.apiConfigCreateAsync(GlobalConfig, 'myapp001', '--aaaa--');
+    // await server.apiConfigCreateAsync(GlobalConfig, 'myapp001', '--aaaa--');
 
 })();

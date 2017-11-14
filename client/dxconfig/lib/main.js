@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const command_1 = require("./command");
 const session_1 = require("./session");
 const commandhub_1 = require("./commandhub");
 const globalconfig_1 = require("./globalconfig");
@@ -21,20 +22,12 @@ hub.loginToken = (token) => Session.loginToken(token);
 hub.configInit = () => Config.init();
 hub.configAddSecret = (path) => Config.addSecret(path);
 hub.logout = () => Session.logout();
-// ICommandHub
-// loginToken: Session.loginToken
-// configInit();
-// configAddSecret(path: string)
-// serverPush();
-// serverPull();
-// Command.dispatch(hub);
-globalconfig_1.Config.load();
-const server = require("./platform/server");
+command_1.Command.dispatch(hub);
 (function run() {
     return __awaiter(this, void 0, void 0, function* () {
         //await server.apiConfigStatusAsync(GlobalConfig)
         //var result = await server.apiConfigRetrieveAsync(GlobalConfig, 'myapp001');
         //console.log(result);
-        yield server.apiConfigCreateAsync(globalconfig_1.Config, 'myapp001', '--aaaa--');
+        // await server.apiConfigCreateAsync(GlobalConfig, 'myapp001', '--aaaa--');
     });
 })();
