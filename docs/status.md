@@ -16,4 +16,8 @@ Push configuration to the server
 
     dxconfig push
 
+Download the server configuration
+
+    dxconfig pull
+
     

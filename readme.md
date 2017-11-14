@@ -4,8 +4,29 @@ Install
 
     npm install --global dxconfig
 
-Run
+Login to the server
 
-    dxconfig login http://<endpoint_url>
+    dxconfig login <token>
 
-    dxconfig get arda
+Download the server configuration
+
+    dxconfig pull
+
+
+## Create a configuration ##
+
+Initialize a local file
+
+    dxconfig init
+    dxconfig add file.secrets
+
+Push configuration to the server
+
+    dxconfig push
+   
+
+## Debugging ##
+
+The configuration is stored at:
+
+    <HOME_USER>/dxconfig/configserver.json
