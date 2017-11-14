@@ -13,12 +13,16 @@ class Config {
 
     init() {
         // ignore if this was already initialized
-        if(this.config.exist())
+        if(this.config.exist()) {
+            console.log('Configuration already exist');
             return;
+        }
         
         this.config.app = CONFIGAPPCONST;
         this.config.secret = null;
         this.config.save();
+
+        console.log('Configuration created');
     }
 
     addSecret(path: string) {

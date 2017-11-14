@@ -18,7 +18,7 @@ class YargsCommand {
 
         // dxconfig init
         .command('init', 'Create a DX configuration file', {}, (argv) => {
-            hub.configInit();
+            hub.configInit();            
         })
 
         // dxconfig add secret.json
@@ -39,6 +39,11 @@ class YargsCommand {
         // logout
         .command('logout', 'Log out from the server', {}, (argv) => {
             hub.logout();
+        })
+
+        // debug
+        .command('debug', 'Debug command', {}, (argv) => {
+            console.log('DEBUG');
         })
 
         .demandCommand()

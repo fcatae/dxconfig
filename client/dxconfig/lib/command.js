@@ -26,6 +26,9 @@ class YargsCommand {
             .command('logout', 'Log out from the server', {}, (argv) => {
             hub.logout();
         })
+            .command('debug', 'Debug command', {}, (argv) => {
+            console.log('DEBUG');
+        })
             .demandCommand()
             .help('help').alias('help', '?')
             .argv;
