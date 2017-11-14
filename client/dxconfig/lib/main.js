@@ -15,19 +15,24 @@ const globalconfig_1 = require("./globalconfig");
 const localconfig_1 = require("./localconfig");
 const config_1 = require("./config");
 var Session = session_1.GetSession(globalconfig_1.Config);
-var Config = config_1.GetConfig(localconfig_1.Config);
+var Config = config_1.GetConfig(globalconfig_1.Config, localconfig_1.Config);
 console.log('dxconfig v0.1');
 var hub = commandhub_1.HubNotImplemented;
 hub.loginToken = (token) => Session.loginToken(token);
 hub.configInit = () => Config.init();
 hub.configAddSecret = (path) => Config.addSecret(path);
+hub.serverPull = () => Config.serverPull();
+hub.serverPush = () => Config.serverPush();
 hub.logout = () => Session.logout();
 command_1.Command.dispatch(hub);
 (function run() {
     return __awaiter(this, void 0, void 0, function* () {
         //await server.apiConfigStatusAsync(GlobalConfig)
-        //var result = await server.apiConfigRetrieveAsync(GlobalConfig, 'myapp001');
-        //console.log(result);
-        // await server.apiConfigCreateAsync(GlobalConfig, 'myapp001', '--aaaa--');
+        //GlobalConfig.load();
+        //console.log('test')
+        //console.dir(GlobalConfig);
+        //await server.apiConfigCreateAsync(GlobalConfig, 'myapp001', '--aaaa--');
+        // var result = await server.apiConfigRetrieveAsync(GlobalConfig, 'myapp001');
+        // console.log(result);
     });
 })();

@@ -8,7 +8,7 @@ import { Config as LocalConfig } from './localconfig';
 import { GetConfig } from './config';
 
 var Session = GetSession(GlobalConfig);
-var Config = GetConfig(LocalConfig);
+var Config = GetConfig(GlobalConfig, LocalConfig);
 
 console.log('dxconfig v0.1');
 
@@ -17,14 +17,13 @@ var hub = HubNotImplemented;
 hub.loginToken = (token) => Session.loginToken(token);
 hub.configInit = () => Config.init();
 hub.configAddSecret = (path) => Config.addSecret(path);
+hub.serverPull = () => Config.serverPull();
+hub.serverPush = () => Config.serverPush();
 hub.logout = () => Session.logout();
 
 Command.dispatch(hub);
 
 // ICommandHub
-    // loginToken: Session.loginToken
-    // configInit();
-    // configAddSecret(path: string)
     // serverPush();
     // serverPull();
 
@@ -38,9 +37,14 @@ import * as server from './platform/server'
 
     //await server.apiConfigStatusAsync(GlobalConfig)
 
-    //var result = await server.apiConfigRetrieveAsync(GlobalConfig, 'myapp001');
-    //console.log(result);
+    //GlobalConfig.load();
 
-    // await server.apiConfigCreateAsync(GlobalConfig, 'myapp001', '--aaaa--');
+    //console.log('test')
+    //console.dir(GlobalConfig);
+
+    //await server.apiConfigCreateAsync(GlobalConfig, 'myapp001', '--aaaa--');
+
+    // var result = await server.apiConfigRetrieveAsync(GlobalConfig, 'myapp001');
+    // console.log(result);
 
 })();
