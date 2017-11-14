@@ -1,4 +1,4 @@
 {
- "app": "<enter app name>",
- "secret": null
+ "app": "dxconfig-test",
+ "secret": "file.secrets"
 }
